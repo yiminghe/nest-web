@@ -4,7 +4,6 @@ import {
   DynamicModule,
   ExistingProvider,
   FactoryProvider,
-  Injectable,
   InjectionToken,
   NestModule,
   Provider,
@@ -42,15 +41,15 @@ export class Module {
   private readonly _imports = new Set<Module>();
   private readonly _providers = new Map<
     InstanceToken,
-    InstanceWrapper<Injectable>
+    InstanceWrapper<any>
   >();
   private readonly _injectables = new Map<
     InstanceToken,
-    InstanceWrapper<Injectable>
+    InstanceWrapper<any>
   >();
   private readonly _middlewares = new Map<
     InstanceToken,
-    InstanceWrapper<Injectable>
+    InstanceWrapper<any>
   >();
   private readonly _controllers = new Map<
     InstanceToken,
@@ -80,11 +79,11 @@ export class Module {
     this._token = token;
   }
 
-  get providers(): Map<InstanceToken, InstanceWrapper<Injectable>> {
+  get providers(): Map<InstanceToken, InstanceWrapper<any>> {
     return this._providers;
   }
 
-  get middlewares(): Map<InstanceToken, InstanceWrapper<Injectable>> {
+  get middlewares(): Map<InstanceToken, InstanceWrapper<any>> {
     return this._middlewares;
   }
 
@@ -102,7 +101,7 @@ export class Module {
   /**
    * Left for backward-compatibility reasons
    */
-  get components(): Map<InstanceToken, InstanceWrapper<Injectable>> {
+  get components(): Map<InstanceToken, InstanceWrapper<any>> {
     return this._providers;
   }
 
@@ -113,7 +112,7 @@ export class Module {
     return this._controllers;
   }
 
-  get injectables(): Map<InstanceToken, InstanceWrapper<Injectable>> {
+  get injectables(): Map<InstanceToken, InstanceWrapper<any>> {
     return this._injectables;
   }
 
@@ -193,7 +192,7 @@ export class Module {
     );
   }
 
-  public addInjectable<T extends Injectable>(
+  public addInjectable<T extends any>(
     injectable: Provider,
     host?: Type<T>,
   ) {
@@ -229,8 +228,8 @@ export class Module {
       provider,
       new InstanceWrapper({
         token: provider,
-        name: (provider as Type<Injectable>).name,
-        metatype: provider as Type<Injectable>,
+        name: (provider as Type<any>).name,
+        metatype: provider as Type<any>,
         instance: null,
         isResolved: false,
         scope: getClassScope(provider),
@@ -238,7 +237,7 @@ export class Module {
         host: this,
       }),
     );
-    return provider as Type<Injectable>;
+    return provider as Type<any>;
   }
 
   public isCustomProvider(
@@ -501,7 +500,7 @@ export class Module {
   }
 
   public getNonAliasProviders(): Array<
-    [InstanceToken, InstanceWrapper<Injectable>]
+    [InstanceToken, InstanceWrapper<any>]
   > {
     return Array.from(this._providers.entries()).filter(([_, wrapper]) => !wrapper.isAlias);
   }

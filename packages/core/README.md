@@ -1,1 +1,1 @@
-https://www.npmjs.com/package/ot-engine
+https://www.npmjs.com/package/nest-web

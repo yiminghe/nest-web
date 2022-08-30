@@ -67,21 +67,7 @@ export interface ArgumentsHost {
    * @param index index of argument to retrieve
    */
   getArgByIndex<T = any>(index: number): T;
-  /**
-   * Switch context to RPC.
-   * @returns interface with methods to retrieve RPC arguments
-   */
-  switchToRpc(): RpcArgumentsHost;
-  /**
-   * Switch context to HTTP.
-   * @returns interface with methods to retrieve HTTP arguments
-   */
-  switchToHttp(): HttpArgumentsHost;
-  /**
-   * Switch context to WebSockets.
-   * @returns interface with methods to retrieve WebSockets arguments
-   */
-  switchToWs(): WsArgumentsHost;
+  
   /**
    * Returns the current execution context type (string)
    */

@@ -12,7 +12,6 @@ import {
   SELF_DECLARED_DEPS_METADATA,
 } from 'nest-web-common';
 import { Controller } from 'nest-web-common';
-import { Injectable } from 'nest-web-common';
 import { Type } from 'nest-web-common';
 import { clc } from 'nest-web-common';
 import {
@@ -169,19 +168,7 @@ export class Injector {
     contextId = STATIC_CONTEXT,
     inquirer?: InstanceWrapper,
   ) {
-    const { metatype, token } = wrapper;
-    const targetWrapper = collection.get(token);
-    if (!isUndefined(targetWrapper.instance)) {
-      return;
-    }
-    targetWrapper.instance = Object.create(metatype.prototype);
-    await this.loadInstance(
-      wrapper,
-      collection,
-      moduleRef,
-      contextId,
-      inquirer || wrapper,
-    );
+    return;
   }
 
   public async loadController(
@@ -189,15 +176,7 @@ export class Injector {
     moduleRef: Module,
     contextId = STATIC_CONTEXT,
   ) {
-    const controllers = moduleRef.controllers;
-    await this.loadInstance<Controller>(
-      wrapper,
-      controllers,
-      moduleRef,
-      contextId,
-      wrapper,
-    );
-    await this.loadEnhancersPerContext(wrapper, contextId, wrapper);
+    return;
   }
 
   public async loadInjectable<T = any>(
@@ -217,13 +196,13 @@ export class Injector {
   }
 
   public async loadProvider(
-    wrapper: InstanceWrapper<Injectable>,
+    wrapper: InstanceWrapper<any>,
     moduleRef: Module,
     contextId = STATIC_CONTEXT,
     inquirer?: InstanceWrapper,
   ) {
     const providers = moduleRef.providers;
-    await this.loadInstance<Injectable>(
+    await this.loadInstance<any>(
       wrapper,
       providers,
       moduleRef,
@@ -270,7 +249,7 @@ export class Injector {
     const [dependencies, optionalDependenciesIds] = isFactoryProvider
       ? this.getFactoryProviderDependencies(wrapper)
       : this.getClassDependencies(wrapper);
-
+    debugger
     let isResolved = true;
     const resolveParam = async (param: unknown, index: number) => {
       try {
@@ -354,7 +333,6 @@ export class Injector {
   public reflectConstructorParams<T>(type: Type<T>): any[] {
     const paramtypes = Reflect.getMetadata(PARAMTYPES_METADATA, type) || [];
     const selfParams = this.reflectSelfParams<T>(type);
-
     selfParams.forEach(({ index, param }) => (paramtypes[index] = param));
     return paramtypes;
   }

@@ -1,8 +1,7 @@
 {
-  "name": "nest-web",
+  "name": "nest-web-workspace",
   "private": true,
   "description": "Using nest on web",
-  "author": "yiminghe <yiminghe@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,12 +15,14 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "yarn workspace app run start"
+    "start": "yarn workspace app run start",
+    "md": "ts-node scripts/syncMd.ts"
   },
   "dependencies": {
     "@babel/cli": "7.x",
     "@babel/core": "7.x",
     "@babel/node": "7.x",
+    "@babel/plugin-proposal-decorators": "^7.18.10",
     "@babel/preset-env": "7.x",
     "@babel/preset-typescript": "7.x",
     "@pika/pack": "^0.5.0",

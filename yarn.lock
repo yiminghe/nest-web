@@ -481,7 +481,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-proposal-decorators@npm:^7.16.4":
+"@babel/plugin-proposal-decorators@npm:^7.16.4, @babel/plugin-proposal-decorators@npm:^7.18.10":
   version: 7.18.10
   resolution: "@babel/plugin-proposal-decorators@npm:7.18.10::__archiveUrl=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fplugin-proposal-decorators%2F-%2Fplugin-proposal-decorators-7.18.10.tgz"
   dependencies:
@@ -2933,7 +2933,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:18.x":
   version: 18.7.14
   resolution: "@types/node@npm:18.7.14::__archiveUrl=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Fnode%2F-%2Fnode-18.7.14.tgz"
   checksum: 99cf28ff854100158de875cca23c7acc3cc01dfee526a52b90b7f36767c821bcbaf2be0a98a70f06f3b78f3c60639168ff949d725b61e2e124f9f71f1fb8043d
@@ -3053,6 +3053,13 @@ __metadata:
   version: 2.0.2
   resolution: "@types/trusted-types@npm:2.0.2::__archiveUrl=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Ftrusted-types%2F-%2Ftrusted-types-2.0.2.tgz"
   checksum: 3371eef5f1c50e1c3c07a127c1207b262ba65b83dd167a1c460fc1b135a3fb0c97b9f508efebd383f239cc5dd5b7169093686a692a501fde9c3f7208657d9b0d
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:7.x":
+  version: 7.0.5
+  resolution: "@types/uuid@npm:7.0.5::__archiveUrl=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Fuuid%2F-%2Fuuid-7.0.5.tgz"
+  checksum: 30637d2cd40069ba8dfb2b70d3139b00ae576aa43f042d88039a7b0ce7dd5b3dbff1668844849a469cb00f7d42178dbb79c3ca74b62cf42629dca67952a2593d
   languageName: node
   linkType: hard
 
@@ -10177,35 +10184,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nest-web-common@workspace:*, nest-web-common@workspace:packages/common":
+"nest-web-common@9.0.11, nest-web-common@workspace:*, nest-web-common@workspace:packages/common":
   version: 0.0.0-use.local
   resolution: "nest-web-common@workspace:packages/common"
   dependencies:
     "@pika/pack": ^0.5.0
+    "@types/uuid": 7.x
+    reflect-metadata: 0.1.x
+    rxjs: 7.x
     typescript: ^4.6.2
+    uuid: 8.x
   peerDependencies:
     rxjs: 7.x
   languageName: unknown
   linkType: soft
 
-"nest-web-core@workspace:*, nest-web-core@workspace:packages/core":
+"nest-web-core@9.0.11, nest-web-core@workspace:*, nest-web-core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "nest-web-core@workspace:packages/core"
   dependencies:
     "@pika/pack": ^0.5.0
+    "@types/node": 18.x
     typescript: ^4.6.2
+    uuid: 8.x
   peerDependencies:
     rxjs: 7.x
   languageName: unknown
   linkType: soft
 
-"nest-web@workspace:.":
+"nest-web-workspace@workspace:.":
   version: 0.0.0-use.local
-  resolution: "nest-web@workspace:."
+  resolution: "nest-web-workspace@workspace:."
   dependencies:
     "@babel/cli": 7.x
     "@babel/core": 7.x
     "@babel/node": 7.x
+    "@babel/plugin-proposal-decorators": ^7.18.10
     "@babel/preset-env": 7.x
     "@babel/preset-typescript": 7.x
     "@pika/pack": ^0.5.0
@@ -10226,6 +10240,15 @@ __metadata:
     rxjs: 7.x
     ts-node: ^10.7.0
     typescript: ^4.6.2
+  languageName: unknown
+  linkType: soft
+
+"nest-web@workspace:packages/web":
+  version: 0.0.0-use.local
+  resolution: "nest-web@workspace:packages/web"
+  dependencies:
+    nest-web-common: 9.0.11
+    nest-web-core: 9.0.11
   languageName: unknown
   linkType: soft
 
@@ -14569,7 +14592,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^8.3.2":
+"uuid@npm:8.x, uuid@npm:^8.3.2":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2::__archiveUrl=https%3A%2F%2Fregistry.npmmirror.com%2Fuuid%2F-%2Fuuid-8.3.2.tgz"
   bin:

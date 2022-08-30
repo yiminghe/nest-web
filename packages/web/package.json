@@ -1,0 +1,18 @@
+{
+  "name": "nest-web",
+  "version": "9.0.11",
+  "description": "Using nestjs on web",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:yiminghe/nest-web.git"
+  },
+  "dependencies": {
+    "nest-web-common": "9.0.11",
+    "nest-web-core": "9.0.11"
+  },
+  "scripts": {
+    "pub": "npm publish"
+  },
+  "packageManager": "yarn@3.2.0"
+}

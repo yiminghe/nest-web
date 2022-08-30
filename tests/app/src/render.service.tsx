@@ -1,5 +1,5 @@
 import { AppService } from './app.service';
-import { Injectable } from 'nest-web-common';
+import { Injectable } from 'nest-web/common';
 
 @Injectable()
 export class RenderService {

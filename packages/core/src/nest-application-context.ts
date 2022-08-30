@@ -157,6 +157,7 @@ export class NestApplicationContext implements INestApplicationContext {
    * Unsubscribes from shutdown signals (process events)
    */
   protected unsubscribeFromProcessSignals() {
+    return;
   }
 
   /**

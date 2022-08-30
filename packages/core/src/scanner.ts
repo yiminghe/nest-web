@@ -57,7 +57,7 @@ export class DependenciesScanner {
     private readonly container: NestContainer,
     private readonly metadataScanner: MetadataScanner,
     private readonly applicationConfig = new ApplicationConfig(),
-  ) {}
+  ) { }
 
   public async scan(module: Type<any>) {
     await this.registerCoreModule();
@@ -92,16 +92,16 @@ export class DependenciesScanner {
       moduleDefinition as Type<any> | DynamicModule,
     )
       ? this.reflectMetadata(
-          MODULE_METADATA.IMPORTS,
-          moduleDefinition as Type<any>,
-        )
+        MODULE_METADATA.IMPORTS,
+        moduleDefinition as Type<any>,
+      )
       : [
-          ...this.reflectMetadata(
-            MODULE_METADATA.IMPORTS,
-            (moduleDefinition as DynamicModule).module,
-          ),
-          ...((moduleDefinition as DynamicModule).imports || []),
-        ];
+        ...this.reflectMetadata(
+          MODULE_METADATA.IMPORTS,
+          (moduleDefinition as DynamicModule).module,
+        ),
+        ...((moduleDefinition as DynamicModule).imports || []),
+      ];
 
     let registeredModuleRefs = [];
     for (const [index, innerModule] of modules.entries()) {
@@ -190,28 +190,11 @@ export class DependenciesScanner {
   }
 
   public reflectControllers(module: Type<any>, token: string) {
-    const controllers = [
-      ...this.reflectMetadata(MODULE_METADATA.CONTROLLERS, module),
-      ...this.container.getDynamicMetadataByToken(
-        token,
-        MODULE_METADATA.CONTROLLERS as 'controllers',
-      ),
-    ];
-    controllers.forEach(item => {
-      this.insertController(item, token);
-      this.reflectDynamicMetadata(item, token);
-    });
+    return;
   }
 
-  public reflectDynamicMetadata(obj: Type<Injectable>, token: string) {
-    if (!obj || !obj.prototype) {
-      return;
-    }
-    this.reflectInjectables(obj, token, GUARDS_METADATA);
-    this.reflectInjectables(obj, token, INTERCEPTORS_METADATA);
-    this.reflectInjectables(obj, token, EXCEPTION_FILTERS_METADATA);
-    this.reflectInjectables(obj, token, PIPES_METADATA);
-    this.reflectParamInjectables(obj, token, ROUTE_ARGS_METADATA);
+  public reflectDynamicMetadata(obj: Type<any>, token: string) {
+    return;
   }
 
   public reflectExports(module: Type<unknown>, token: string) {
@@ -228,7 +211,7 @@ export class DependenciesScanner {
   }
 
   public reflectInjectables(
-    component: Type<Injectable>,
+    component: Type<any>,
     token: string,
     metadataKey: string,
   ) {
@@ -252,7 +235,7 @@ export class DependenciesScanner {
   }
 
   public reflectParamInjectables(
-    component: Type<Injectable>,
+    component: Type<any>,
     token: string,
     metadataKey: string,
   ) {
@@ -265,13 +248,13 @@ export class DependenciesScanner {
       (param: Record<string, any>) =>
         flatten(Object.keys(param).map(k => param[k].pipes)).filter(isFunction),
     );
-    flatten(paramsInjectables).forEach((injectable: Type<Injectable>) =>
+    flatten(paramsInjectables).forEach((injectable: Type<any>) =>
       this.insertInjectable(injectable, token, component),
     );
   }
 
   public reflectKeyMetadata(
-    component: Type<Injectable>,
+    component: Type<any>,
     key: string,
     method: string,
   ) {
@@ -345,18 +328,17 @@ export class DependenciesScanner {
     const providersKeys = Object.keys(applyProvidersMap);
     const type = (
       provider as
-        | ClassProvider
-        | ValueProvider
-        | FactoryProvider
-        | ExistingProvider
+      | ClassProvider
+      | ValueProvider
+      | FactoryProvider
+      | ExistingProvider
     ).provide;
 
     if (!providersKeys.includes(type as string)) {
       return this.container.addProvider(provider as any, token);
     }
-    const providerToken = `${
-      type as string
-    } (UUID: ${randomStringGenerator()})`;
+    const providerToken = `${type as string
+      } (UUID: ${randomStringGenerator()})`;
 
     let scope = (provider as ClassProvider | FactoryProvider).scope;
     if (isNil(scope) && (provider as ClassProvider).useClass) {
@@ -385,22 +367,22 @@ export class DependenciesScanner {
   }
 
   public insertInjectable(
-    injectable: Type<Injectable>,
+    injectable: Type<any>,
     token: string,
-    host: Type<Injectable>,
+    host: Type<any>,
   ) {
     this.container.addInjectable(injectable, token, host);
   }
 
   public insertExportedProvider(
-    exportedProvider: Type<Injectable>,
+    exportedProvider: Type<any>,
     token: string,
   ) {
     this.container.addExportedProvider(exportedProvider, token);
   }
 
   public insertController(controller: Type<Controller>, token: string) {
-    this.container.addController(controller, token);
+    return;
   }
 
   public reflectMetadata(metadataKey: string, metatype: Type<any>) {
@@ -492,7 +474,7 @@ export class DependenciesScanner {
 
   /**
    * @param metatype
-   * @returns `true` if `metatype` is annotated with the `@Injectable()` decorator.
+   * @returns `true` if `metatype` is annotated with the `@any()` decorator.
    */
   private isInjectable(metatype: Type<any>): boolean {
     return !!Reflect.getMetadata(INJECTABLE_WATERMARK, metatype);

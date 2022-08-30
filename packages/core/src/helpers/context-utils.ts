@@ -1,4 +1,3 @@
-import { ParamData } from 'nest-web-common';
 import {
   PARAMTYPES_METADATA,
   RESPONSE_PASSTHROUGH_METADATA,
@@ -15,7 +14,7 @@ import { ExecutionContextHost } from './execution-context-host';
 export interface ParamProperties<T = any, IExtractor extends Function = any> {
   index: number;
   type: T | string;
-  data: ParamData;
+  data: any;
   pipes: PipeTransform[];
   extractValue: IExtractor;
 }

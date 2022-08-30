@@ -1,6 +1,5 @@
 import { DynamicModule, Provider } from 'nest-web-common';
 import { GLOBAL_MODULE_METADATA } from 'nest-web-common';
-import { Injectable } from 'nest-web-common';
 import { Type } from 'nest-web-common';
 import { ApplicationConfig } from '../application-config';
 import { CircularDependencyException } from '../errors/exceptions/circular-dependency.exception';
@@ -8,7 +7,6 @@ import { UndefinedForwardRefException } from '../errors/exceptions/undefined-for
 import { UnknownModuleException } from '../errors/exceptions/unknown-module.exception';
 import { ModuleCompiler } from './compiler';
 import { ContextId } from './instance-wrapper';
-import { InternalCoreModule } from './internal-core-module';
 import { Module } from './module';
 import { ModuleTokenFactory } from './module-token-factory';
 import { ModulesContainer } from './modules-container';
@@ -147,7 +145,7 @@ export class NestContainer {
   public addInjectable(
     injectable: Provider,
     token: string,
-    host?: Type<Injectable>,
+    host?: Type<any>,
   ) {
     if (!this.modules.has(token)) {
       throw new UnknownModuleException();
@@ -209,8 +207,7 @@ export class NestContainer {
   }
 
   public registerCoreModuleRef(moduleRef: Module) {
-    this.internalCoreModule = moduleRef;
-    this.modules[InternalCoreModule.name] = moduleRef;
+    return;
   }
 
   public getModuleTokenFactory(): ModuleTokenFactory {
@@ -218,10 +215,6 @@ export class NestContainer {
   }
 
   public registerRequestProvider<T = any>(request: T, contextId: ContextId) {
-    const wrapper = this.internalCoreModule.getProviderByKey(REQUEST);
-    wrapper.setInstanceByContextId(contextId, {
-      instance: request,
-      isResolved: true,
-    });
+    return;
   }
 }

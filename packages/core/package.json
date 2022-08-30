@@ -13,6 +13,7 @@
       [
         "pika-plugin-ts-types",
         {
+          "ignoreError": true,
           "args": [
             "--rootDir",
             "src"
@@ -41,10 +42,11 @@
   },
   "devDependencies": {
     "@pika/pack": "^0.5.0",
+    "@types/node": "18.x",
     "typescript": "^4.6.2"
   },
   "dependencies": {
-    "uuid":"8.x"
+    "uuid": "8.x"
   },
   "peerDependencies": {
     "rxjs": "7.x"

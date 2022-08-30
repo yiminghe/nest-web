@@ -62,14 +62,6 @@ export interface INestApplicationContext {
    */
   flushLogs(): void;
 
-  /**
-   * Enables the usage of shutdown hooks. Will call the
-   * `onApplicationShutdown` function of a provider if the
-   * process receives a shutdown signal.
-   *
-   * @returns {this} The Nest application context instance
-   */
-  enableShutdownHooks(signals?: ShutdownSignal[] | string[]): this;
 
   /**
    * Initializes the Nest application.

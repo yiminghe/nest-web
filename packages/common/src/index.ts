@@ -27,7 +27,6 @@ export type {
   ForwardReference,
   INestApplication,
   INestApplicationContext,
-  INestMicroservice,
   InjectionToken,
   IntrospectionResult,
   ModuleMetadata,
@@ -50,7 +49,6 @@ export type {
   VersioningOptions,
   VersionValue,
   WsExceptionFilter,
-  GlobalPrefixOptions,
 } from './interfaces';
 export {
   Scope,

@@ -1,6 +1,5 @@
 import { Logger } from 'nest-web-common';
 import { Controller } from 'nest-web-common';
-import { Injectable } from 'nest-web-common';
 import { MODULE_INIT_MESSAGE } from '../helpers/messages';
 import { NestContainer } from './container';
 import { Injector } from './injector';
@@ -52,7 +51,7 @@ export class InstanceLoader {
   private createPrototypesOfProviders(moduleRef: Module) {
     const { providers } = moduleRef;
     providers.forEach(wrapper =>
-      this.injector.loadPrototype<Injectable>(wrapper, providers),
+      this.injector.loadPrototype<any>(wrapper, providers),
     );
   }
 
@@ -72,11 +71,7 @@ export class InstanceLoader {
   }
 
   private async createInstancesOfControllers(moduleRef: Module) {
-    const { controllers } = moduleRef;
-    const wrappers = Array.from(controllers.values());
-    await Promise.all(
-      wrappers.map(item => this.injector.loadController(item, moduleRef)),
-    );
+    return;
   }
 
   private createPrototypesOfInjectables(moduleRef: Module) {
