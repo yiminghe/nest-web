@@ -3,18 +3,18 @@ import {
   Logger,
   LoggerService,
   OptionalFactoryDependency,
-} from '@nestjs/common';
+} from 'nest-web-common';
 import {
   OPTIONAL_DEPS_METADATA,
   OPTIONAL_PROPERTY_DEPS_METADATA,
   PARAMTYPES_METADATA,
   PROPERTY_DEPS_METADATA,
   SELF_DECLARED_DEPS_METADATA,
-} from '@nestjs/common/constants';
-import { Controller } from '@nestjs/common/interfaces/controllers/controller.interface';
-import { Injectable } from '@nestjs/common/interfaces/injectable.interface';
-import { Type } from '@nestjs/common/interfaces/type.interface';
-import { clc } from '@nestjs/common/utils/cli-colors.util';
+} from 'nest-web-common';
+import { Controller } from 'nest-web-common';
+import { Injectable } from 'nest-web-common';
+import { Type } from 'nest-web-common';
+import { clc } from 'nest-web-common';
 import {
   isFunction,
   isNil,
@@ -22,8 +22,7 @@ import {
   isString,
   isSymbol,
   isUndefined,
-} from '@nestjs/common/utils/shared.utils';
-import { iterate } from 'iterare';
+} from 'nest-web-common';
 import { RuntimeException } from '../errors/exceptions/runtime.exception';
 import { UndefinedDependencyException } from '../errors/exceptions/undefined-dependency.exception';
 import { UnknownDependenciesException } from '../errors/exceptions/unknown-dependencies.exception';
@@ -561,7 +560,7 @@ export class Injector {
     const imports = moduleRef.imports || new Set<Module>();
     const identity = (item: any) => item;
 
-    let children = [...imports.values()].filter(identity);
+    let children = Array.from(imports.values()).filter(identity);
     if (isTraversing) {
       const contextModuleExports = moduleRef.exports;
       children = children.filter(child =>
@@ -691,7 +690,7 @@ export class Injector {
     if (!isObject(instance)) {
       return undefined;
     }
-    iterate(properties)
+    (properties)
       .filter(item => !isNil(item.instance))
       .forEach(item => (instance[item.key] = item.instance));
   }
@@ -921,7 +920,7 @@ export class Injector {
   }
 
   private isDebugMode(): boolean {
-    return !!process.env.NEST_DEBUG;
+    return process.env.NODE_ENV==='development';
   }
 
   private getContextId(

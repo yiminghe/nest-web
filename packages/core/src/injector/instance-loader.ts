@@ -1,6 +1,6 @@
-import { Logger } from '@nestjs/common';
-import { Controller } from '@nestjs/common/interfaces/controllers/controller.interface';
-import { Injectable } from '@nestjs/common/interfaces/injectable.interface';
+import { Logger } from 'nest-web-common';
+import { Controller } from 'nest-web-common';
+import { Injectable } from 'nest-web-common';
 import { MODULE_INIT_MESSAGE } from '../helpers/messages';
 import { NestContainer } from './container';
 import { Injector } from './injector';
@@ -37,7 +37,7 @@ export class InstanceLoader {
 
   private async createInstances(modules: Map<string, Module>) {
     await Promise.all(
-      [...modules.values()].map(async moduleRef => {
+      Array.from(modules.values()).map(async moduleRef => {
         await this.createInstancesOfProviders(moduleRef);
         await this.createInstancesOfInjectables(moduleRef);
         await this.createInstancesOfControllers(moduleRef);
@@ -58,7 +58,7 @@ export class InstanceLoader {
 
   private async createInstancesOfProviders(moduleRef: Module) {
     const { providers } = moduleRef;
-    const wrappers = [...providers.values()];
+    const wrappers = Array.from(providers.values());
     await Promise.all(
       wrappers.map(item => this.injector.loadProvider(item, moduleRef)),
     );
@@ -73,7 +73,7 @@ export class InstanceLoader {
 
   private async createInstancesOfControllers(moduleRef: Module) {
     const { controllers } = moduleRef;
-    const wrappers = [...controllers.values()];
+    const wrappers = Array.from(controllers.values());
     await Promise.all(
       wrappers.map(item => this.injector.loadController(item, moduleRef)),
     );
@@ -88,7 +88,7 @@ export class InstanceLoader {
 
   private async createInstancesOfInjectables(moduleRef: Module) {
     const { injectables } = moduleRef;
-    const wrappers = [...injectables.values()];
+    const wrappers = Array.from(injectables.values());
     await Promise.all(
       wrappers.map(item => this.injector.loadInjectable(item, moduleRef)),
     );

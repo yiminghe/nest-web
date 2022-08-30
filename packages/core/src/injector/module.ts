@@ -9,17 +9,16 @@ import {
   NestModule,
   Provider,
   ValueProvider,
-} from '@nestjs/common/interfaces';
-import { Type } from '@nestjs/common/interfaces/type.interface';
-import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
+} from 'nest-web-common';
+import { Type } from 'nest-web-common';
+import { randomStringGenerator } from 'nest-web-common';
 import {
   isFunction,
   isNil,
   isString,
   isSymbol,
   isUndefined,
-} from '@nestjs/common/utils/shared.utils';
-import { iterate } from 'iterare';
+} from 'nest-web-common';
 import { ApplicationConfig } from '../application-config';
 import { InvalidClassException } from '../errors/exceptions/invalid-class.exception';
 import { RuntimeException } from '../errors/exceptions/runtime.exception';
@@ -430,11 +429,10 @@ export class Module {
     if (this._providers.has(token)) {
       return token;
     }
-    const imports = iterate(this._imports.values())
+    const imports = Array.from(this._imports.values())
       .filter(item => !!item)
       .map(({ metatype }) => metatype)
-      .filter(metatype => !!metatype)
-      .toArray();
+      .filter(metatype => !!metatype);
 
     if (!imports.includes(token as Type<unknown>)) {
       const { name } = this.metatype;
@@ -505,7 +503,7 @@ export class Module {
   public getNonAliasProviders(): Array<
     [InstanceToken, InstanceWrapper<Injectable>]
   > {
-    return [...this._providers].filter(([_, wrapper]) => !wrapper.isAlias);
+    return Array.from(this._providers.entries()).filter(([_, wrapper]) => !wrapper.isAlias);
   }
 
   public createModuleReferenceType(): Type<ModuleRef> {

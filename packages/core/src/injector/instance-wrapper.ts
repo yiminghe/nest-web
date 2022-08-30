@@ -1,17 +1,16 @@
-import { Logger, LoggerService, Provider, Scope, Type } from '@nestjs/common';
+import { Logger, LoggerService, Provider, Scope, Type } from 'nest-web-common';
 import {
   ClassProvider,
   FactoryProvider,
   ValueProvider,
-} from '@nestjs/common/interfaces';
-import { clc } from '@nestjs/common/utils/cli-colors.util';
-import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
+} from 'nest-web-common';
+import { clc } from 'nest-web-common';
+import { randomStringGenerator } from 'nest-web-common';
 import {
   isNil,
   isString,
   isUndefined,
-} from '@nestjs/common/utils/shared.utils';
-import { iterate } from 'iterare';
+} from 'nest-web-common';
 import { STATIC_CONTEXT } from './constants';
 import {
   isClassProvider,
@@ -381,11 +380,10 @@ export class InstanceWrapper<T = any> {
     if (!this.transientMap) {
       return [];
     }
-    const instances = [...this.transientMap.values()];
-    return iterate(instances)
+    const instances = Array.from(this.transientMap.values());
+    return (instances)
       .map(item => item.get(STATIC_CONTEXT))
-      .filter(item => !!item)
-      .toArray();
+      .filter(item => !!item);
   }
 
   public mergeWith(provider: Provider) {
@@ -453,6 +451,6 @@ export class InstanceWrapper<T = any> {
   }
 
   private isDebugMode(): boolean {
-    return !!process.env.NEST_DEBUG;
+    return process.env.NODE_ENV==='development';
   }
 }

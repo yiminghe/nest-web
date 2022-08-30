@@ -3,13 +3,9 @@ import {
   Logger,
   LoggerService,
   LogLevel,
-  ShutdownSignal,
-} from '@nestjs/common';
-import { Abstract, DynamicModule, Scope } from '@nestjs/common/interfaces';
-import { Type } from '@nestjs/common/interfaces/type.interface';
-import { isEmpty } from '@nestjs/common/utils/shared.utils';
-import { iterate } from 'iterare';
-import { MESSAGES } from './constants';
+} from 'nest-web-common';
+import { Abstract, DynamicModule, Scope } from 'nest-web-common';
+import { Type } from 'nest-web-common';
 import { InvalidClassScopeException } from './errors/exceptions/invalid-class-scope.exception';
 import { UnknownElementException } from './errors/exceptions/unknown-element.exception';
 import { UnknownModuleException } from './errors/exceptions/unknown-module.exception';
@@ -149,35 +145,7 @@ export class NestApplicationContext implements INestApplicationContext {
     this.shouldFlushLogsOnOverride = true;
   }
 
-  /**
-   * Enables the usage of shutdown hooks. Will call the
-   * `onApplicationShutdown` function of a provider if the
-   * process receives a shutdown signal.
-   *
-   * @param {ShutdownSignal[]} [signals=[]] The system signals it should listen to
-   *
-   * @returns {this} The Nest application context instance
-   */
-  public enableShutdownHooks(signals: (ShutdownSignal | string)[] = []): this {
-    if (isEmpty(signals)) {
-      signals = Object.keys(ShutdownSignal).map(
-        (key: string) => ShutdownSignal[key],
-      );
-    } else {
-      // given signals array should be unique because
-      // process shouldn't listen to the same signal more than once.
-      signals = Array.from(new Set(signals));
-    }
-
-    signals = iterate(signals)
-      .map((signal: string) => signal.toString().toUpperCase().trim())
-      // filter out the signals which is already listening to
-      .filter(signal => !this.activeShutdownSignals.includes(signal))
-      .toArray();
-
-    this.listenToShutdownSignals(signals);
-    return this;
-  }
+ 
 
   protected async dispose(): Promise<void> {
     // Nest application context has no server
@@ -186,47 +154,9 @@ export class NestApplicationContext implements INestApplicationContext {
   }
 
   /**
-   * Listens to shutdown signals by listening to
-   * process events
-   *
-   * @param {string[]} signals The system signals it should listen to
-   */
-  protected listenToShutdownSignals(signals: string[]) {
-    const cleanup = async (signal: string) => {
-      try {
-        signals.forEach(sig => process.removeListener(sig, cleanup));
-        await this.callDestroyHook();
-        await this.callBeforeShutdownHook(signal);
-        await this.dispose();
-        await this.callShutdownHook(signal);
-        process.kill(process.pid, signal);
-      } catch (err) {
-        Logger.error(
-          MESSAGES.ERROR_DURING_SHUTDOWN,
-          (err as Error)?.stack,
-          NestApplicationContext.name,
-        );
-        process.exit(1);
-      }
-    };
-    this.shutdownCleanupRef = cleanup as (...args: unknown[]) => unknown;
-
-    signals.forEach((signal: string) => {
-      this.activeShutdownSignals.push(signal);
-      process.on(signal as any, cleanup);
-    });
-  }
-
-  /**
    * Unsubscribes from shutdown signals (process events)
    */
   protected unsubscribeFromProcessSignals() {
-    if (!this.shutdownCleanupRef) {
-      return;
-    }
-    this.activeShutdownSignals.forEach(signal => {
-      process.removeListener(signal, this.shutdownCleanupRef);
-    });
   }
 
   /**

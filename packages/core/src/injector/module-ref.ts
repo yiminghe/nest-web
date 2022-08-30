@@ -1,4 +1,4 @@
-import { IntrospectionResult, Scope, Type } from '@nestjs/common';
+import { IntrospectionResult, Scope, Type } from 'nest-web-common';
 import { InvalidClassScopeException } from '../errors/exceptions/invalid-class-scope.exception';
 import { UnknownElementException } from '../errors/exceptions/unknown-element.exception';
 import { getClassScope } from '../helpers/get-class-scope';

@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common/interfaces';
+import { Controller } from 'nest-web-common';
 import { STATIC_CONTEXT } from '../injector/constants';
 import { ContextId } from '../injector/instance-wrapper';
 

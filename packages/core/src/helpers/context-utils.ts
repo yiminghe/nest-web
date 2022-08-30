@@ -1,15 +1,15 @@
-import { ParamData } from '@nestjs/common';
+import { ParamData } from 'nest-web-common';
 import {
   PARAMTYPES_METADATA,
   RESPONSE_PASSTHROUGH_METADATA,
-} from '@nestjs/common/constants';
+} from 'nest-web-common';
 import {
   ContextType,
   Controller,
   PipeTransform,
   Type,
-} from '@nestjs/common/interfaces';
-import { isFunction } from '@nestjs/common/utils/shared.utils';
+} from 'nest-web-common';
+import { isFunction } from 'nest-web-common';
 import { ExecutionContextHost } from './execution-context-host';
 
 export interface ParamProperties<T = any, IExtractor extends Function = any> {

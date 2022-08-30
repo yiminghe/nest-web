@@ -1,22 +1,19 @@
-import { Injectable } from '@nestjs/common/interfaces/injectable.interface';
 import {
   isConstructor,
   isFunction,
   isNil,
-} from '@nestjs/common/utils/shared.utils';
-import { iterate } from 'iterare';
+} from 'nest-web-common';
 
 export class MetadataScanner {
-  public scanFromPrototype<T extends Injectable, R = any>(
+  public scanFromPrototype<T, R = any>(
     instance: T,
     prototype: object,
     callback: (name: string) => R,
   ): R[] {
     const methodNames = new Set(this.getAllFilteredMethodNames(prototype));
-    return iterate(methodNames)
+    return Array.from(methodNames.values())
       .map(callback)
-      .filter(metadata => !isNil(metadata))
-      .toArray();
+      .filter(metadata => !isNil(metadata));
   }
 
   *getAllFilteredMethodNames(prototype: object): IterableIterator<string> {
@@ -28,9 +25,8 @@ export class MetadataScanner {
       return !isConstructor(prop) && isFunction(prototype[prop]);
     };
     do {
-      yield* iterate(Object.getOwnPropertyNames(prototype))
-        .filter(isMethod)
-        .toArray();
+      yield* (Object.getOwnPropertyNames(prototype))
+        .filter(isMethod);
     } while (
       (prototype = Reflect.getPrototypeOf(prototype)) &&
       prototype !== Object.prototype

@@ -1,6 +1,5 @@
-import { OnModuleInit } from '@nestjs/common';
-import { isFunction, isNil } from '@nestjs/common/utils/shared.utils';
-import { iterate } from 'iterare';
+import { OnModuleInit } from 'nest-web-common';
+import { isFunction, isNil } from 'nest-web-common';
 import {
   getNonTransientInstances,
   getTransientInstances,
@@ -21,11 +20,10 @@ function hasOnModuleInitHook(instance: unknown): instance is OnModuleInit {
  * Calls the given instances
  */
 function callOperator(instances: InstanceWrapper[]): Promise<any>[] {
-  return iterate(instances)
+  return (instances)
     .filter(instance => !isNil(instance))
     .filter(hasOnModuleInitHook)
-    .map(async instance => (instance as any as OnModuleInit).onModuleInit())
-    .toArray();
+    .map(async instance => (instance as any as OnModuleInit).onModuleInit());
 }
 
 /**

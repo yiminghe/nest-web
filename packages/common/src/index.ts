@@ -4,14 +4,12 @@
  * https://nestjs.com
  * MIT Licensed
  */
-import 'reflect-metadata';
 
-export * from './cache';
 export * from './decorators';
 export * from './enums';
-export * from './exceptions';
-export * from './file-stream';
-export {
+export type {
+  Controller,
+  NestApplicationContextOptions,
   Abstract,
   ArgumentMetadata,
   ArgumentsHost,
@@ -21,24 +19,20 @@ export {
   ClassProvider,
   ContextType,
   DynamicModule,
+  ExceptionFilterMetadata,
   ExceptionFilter,
   ExecutionContext,
   ExistingProvider,
   FactoryProvider,
   ForwardReference,
-  HttpServer,
   INestApplication,
   INestApplicationContext,
   INestMicroservice,
   InjectionToken,
   IntrospectionResult,
-  MessageEvent,
-  MiddlewareConsumer,
   ModuleMetadata,
   NestApplicationOptions,
-  NestHybridApplicationOptions,
   NestInterceptor,
-  NestMiddleware,
   NestModule,
   OnApplicationBootstrap,
   OnApplicationShutdown,
@@ -48,21 +42,22 @@ export {
   Paramtype,
   PipeTransform,
   Provider,
-  RawBodyRequest,
   RpcExceptionFilter,
-  Scope,
   ScopeOptions,
   Type,
   ValidationError,
   ValueProvider,
   VersioningOptions,
-  VERSION_NEUTRAL,
-  WebSocketAdapter,
+  VersionValue,
   WsExceptionFilter,
-  WsMessageHandler,
+  GlobalPrefixOptions,
+} from './interfaces';
+export {
+  Scope,
+  VERSION_NEUTRAL,
 } from './interfaces';
 export * from './module-utils';
-export * from './pipes';
 export * from './serializer';
 export * from './services';
 export * from './utils';
+export * from './constants';

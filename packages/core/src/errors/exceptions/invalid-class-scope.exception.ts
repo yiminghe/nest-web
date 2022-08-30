@@ -1,5 +1,5 @@
-import { Abstract, Type } from '@nestjs/common/interfaces';
-import { isFunction } from '@nestjs/common/utils/shared.utils';
+import { Abstract, Type } from 'nest-web-common';
+import { isFunction } from 'nest-web-common';
 import { INVALID_CLASS_SCOPE_MESSAGE } from '../messages';
 import { RuntimeException } from './runtime.exception';
 

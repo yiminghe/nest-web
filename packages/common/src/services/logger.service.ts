@@ -53,6 +53,24 @@ interface LogBufferRecord {
 
 const DEFAULT_LOGGER = new ConsoleLogger();
 
+function WrapBuffer(
+  target: object,
+  propertyKey: string | symbol,
+  descriptor: TypedPropertyDescriptor<any>,
+)  {
+  const originalFn = descriptor.value;
+  descriptor.value = function (...args: unknown[]) {
+    if (Logger.isBufferAttached) {
+      Logger.logBuffer.push({
+        methodRef: originalFn.bind(this),
+        arguments: args,
+      });
+      return;
+    }
+    return originalFn.call(this, ...args);
+  };
+}
+
 @Injectable()
 export class Logger implements LoggerService {
   protected static logBuffer = new Array<LogBufferRecord>();
@@ -62,23 +80,7 @@ export class Logger implements LoggerService {
 
   protected localInstanceRef?: LoggerService;
 
-  private static WrapBuffer: MethodDecorator = (
-    target: object,
-    propertyKey: string | symbol,
-    descriptor: TypedPropertyDescriptor<any>,
-  ) => {
-    const originalFn = descriptor.value;
-    descriptor.value = function (...args: unknown[]) {
-      if (Logger.isBufferAttached) {
-        Logger.logBuffer.push({
-          methodRef: originalFn.bind(this),
-          arguments: args,
-        });
-        return;
-      }
-      return originalFn.call(this, ...args);
-    };
-  };
+  private static WrapBuffer: MethodDecorator = WrapBuffer;
 
   constructor();
   constructor(context: string);
@@ -105,7 +107,7 @@ export class Logger implements LoggerService {
    */
   error(message: any, stack?: string, context?: string): void;
   error(message: any, ...optionalParams: [...any, string?, string?]): void;
-  @Logger.WrapBuffer
+  @WrapBuffer
   error(message: any, ...optionalParams: any[]) {
     optionalParams = this.context
       ? optionalParams.concat(this.context)
@@ -119,7 +121,7 @@ export class Logger implements LoggerService {
    */
   log(message: any, context?: string): void;
   log(message: any, ...optionalParams: [...any, string?]): void;
-  @Logger.WrapBuffer
+  @WrapBuffer
   log(message: any, ...optionalParams: any[]) {
     optionalParams = this.context
       ? optionalParams.concat(this.context)
@@ -132,7 +134,7 @@ export class Logger implements LoggerService {
    */
   warn(message: any, context?: string): void;
   warn(message: any, ...optionalParams: [...any, string?]): void;
-  @Logger.WrapBuffer
+  @WrapBuffer
   warn(message: any, ...optionalParams: any[]) {
     optionalParams = this.context
       ? optionalParams.concat(this.context)
@@ -145,7 +147,7 @@ export class Logger implements LoggerService {
    */
   debug(message: any, context?: string): void;
   debug(message: any, ...optionalParams: [...any, string?]): void;
-  @Logger.WrapBuffer
+  @WrapBuffer
   debug(message: any, ...optionalParams: any[]) {
     optionalParams = this.context
       ? optionalParams.concat(this.context)
@@ -158,7 +160,7 @@ export class Logger implements LoggerService {
    */
   verbose(message: any, context?: string): void;
   verbose(message: any, ...optionalParams: [...any, string?]): void;
-  @Logger.WrapBuffer
+  @WrapBuffer
   verbose(message: any, ...optionalParams: any[]) {
     optionalParams = this.context
       ? optionalParams.concat(this.context)
@@ -175,7 +177,7 @@ export class Logger implements LoggerService {
     message: any,
     ...optionalParams: [...any, string?, string?]
   ): void;
-  @Logger.WrapBuffer
+  @WrapBuffer
   static error(message: any, ...optionalParams: any[]) {
     this.staticInstanceRef?.error(message, ...optionalParams);
   }
@@ -185,7 +187,7 @@ export class Logger implements LoggerService {
    */
   static log(message: any, context?: string): void;
   static log(message: any, ...optionalParams: [...any, string?]): void;
-  @Logger.WrapBuffer
+  @WrapBuffer
   static log(message: any, ...optionalParams: any[]) {
     this.staticInstanceRef?.log(message, ...optionalParams);
   }
@@ -195,7 +197,7 @@ export class Logger implements LoggerService {
    */
   static warn(message: any, context?: string): void;
   static warn(message: any, ...optionalParams: [...any, string?]): void;
-  @Logger.WrapBuffer
+  @WrapBuffer
   static warn(message: any, ...optionalParams: any[]) {
     this.staticInstanceRef?.warn(message, ...optionalParams);
   }
@@ -206,7 +208,7 @@ export class Logger implements LoggerService {
    */
   static debug(message: any, context?: string): void;
   static debug(message: any, ...optionalParams: [...any, string?]): void;
-  @Logger.WrapBuffer
+  @WrapBuffer
   static debug(message: any, ...optionalParams: any[]) {
     this.staticInstanceRef?.debug?.(message, ...optionalParams);
   }
@@ -216,7 +218,7 @@ export class Logger implements LoggerService {
    */
   static verbose(message: any, context?: string): void;
   static verbose(message: any, ...optionalParams: [...any, string?]): void;
-  @Logger.WrapBuffer
+  @WrapBuffer
   static verbose(message: any, ...optionalParams: any[]) {
     this.staticInstanceRef?.verbose?.(message, ...optionalParams);
   }

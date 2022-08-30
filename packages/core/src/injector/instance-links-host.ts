@@ -1,4 +1,4 @@
-import { isFunction } from '@nestjs/common/utils/shared.utils';
+import { isFunction } from 'nest-web-common';
 import { UnknownElementException } from '../errors/exceptions/unknown-element.exception';
 import { NestContainer } from './container';
 import { InstanceWrapper } from './instance-wrapper';

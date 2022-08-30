@@ -1,5 +1,5 @@
-import { Type } from '@nestjs/common';
-import { Controller } from '@nestjs/common/interfaces';
+import { Type } from 'nest-web-common';
+import { Controller } from 'nest-web-common';
 import { IncomingMessage } from 'http';
 import { Observable } from 'rxjs';
 import { CONTROLLER_ID_KEY } from '../injector/constants';

@@ -1,11 +1,8 @@
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable,map } from 'rxjs';
 import { Inject, Injectable, Optional } from '../decorators/core';
-import { StreamableFile } from '../file-stream';
 import { CallHandler, ExecutionContext, NestInterceptor } from '../interfaces';
 import { ClassTransformOptions } from '../interfaces/external/class-transform-options.interface';
 import { TransformerPackage } from '../interfaces/external/transformer-package.interface';
-import { loadPackage } from '../utils/load-package.util';
 import { isObject } from '../utils/shared.utils';
 import { CLASS_SERIALIZER_OPTIONS } from './class-serializer.constants';
 
@@ -32,15 +29,7 @@ export class ClassSerializerInterceptor implements NestInterceptor {
     @Optional()
     protected readonly defaultOptions: ClassSerializerInterceptorOptions = {},
   ) {
-    classTransformer =
-      defaultOptions?.transformerPackage ??
-      loadPackage('class-transformer', 'ClassSerializerInterceptor', () =>
-        require('class-transformer'),
-      );
-
-    if (!defaultOptions?.transformerPackage) {
-      require('class-transformer');
-    }
+    classTransformer=defaultOptions.transformerPackage!;
   }
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
@@ -65,7 +54,7 @@ export class ClassSerializerInterceptor implements NestInterceptor {
     response: PlainLiteralObject | Array<PlainLiteralObject>,
     options: ClassTransformOptions,
   ): PlainLiteralObject | Array<PlainLiteralObject> {
-    if (!isObject(response) || response instanceof StreamableFile) {
+    if (!isObject(response)) {
       return response;
     }
 

@@ -3,8 +3,8 @@ import {
   FactoryProvider,
   Provider,
   ValueProvider,
-} from '@nestjs/common';
-import { isUndefined } from '@nestjs/common/utils/shared.utils';
+} from 'nest-web-common';
+import { isUndefined } from 'nest-web-common';
 
 export function isClassProvider<T = any>(
   provider: Provider,

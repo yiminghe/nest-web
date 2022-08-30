@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger } from 'nest-web-common';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {};

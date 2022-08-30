@@ -1,4 +1,4 @@
-import { flatten, Injectable } from '@nestjs/common';
+import { flatten, Injectable } from 'nest-web-common';
 import { InstanceWrapper } from '../injector/instance-wrapper';
 import { Module } from '../injector/module';
 import { ModulesContainer } from '../injector/modules-container';
@@ -21,7 +21,7 @@ export class DiscoveryService {
     options: DiscoveryOptions = {},
     modules: Module[] = this.getModules(options),
   ): InstanceWrapper[] {
-    const providers = modules.map(item => [...item.providers.values()]);
+    const providers = modules.map(item => Array.from(item.providers.values()));
     return flatten(providers);
   }
 
@@ -29,13 +29,13 @@ export class DiscoveryService {
     options: DiscoveryOptions = {},
     modules: Module[] = this.getModules(options),
   ): InstanceWrapper[] {
-    const controllers = modules.map(item => [...item.controllers.values()]);
+    const controllers = modules.map(item => Array.from(item.controllers.values()));
     return flatten(controllers);
   }
 
   protected getModules(options: DiscoveryOptions = {}): Module[] {
     if (!options.include) {
-      const moduleRefs = [...this.modulesContainer.values()];
+      const moduleRefs = Array.from(this.modulesContainer.values());
       return moduleRefs;
     }
     const whitelisted = this.includeWhitelisted(options.include);
@@ -43,7 +43,7 @@ export class DiscoveryService {
   }
 
   private includeWhitelisted(include: Function[]): Module[] {
-    const moduleRefs = [...this.modulesContainer.values()];
+    const moduleRefs = Array.from(this.modulesContainer.values());
     return moduleRefs.filter(({ metatype }) =>
       include.some(item => item === metatype),
     );

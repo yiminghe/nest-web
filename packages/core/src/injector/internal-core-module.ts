@@ -1,10 +1,9 @@
-import { DynamicModule, Global, Module } from '@nestjs/common';
+import { DynamicModule, Global, Module } from 'nest-web-common';
 import {
   ExistingProvider,
   FactoryProvider,
   ValueProvider,
-} from '@nestjs/common/interfaces';
-import { requestProvider } from '../router/request/request-providers';
+} from 'nest-web-common';
 import { Reflector } from '../services';
 import { inquirerProvider } from './inquirer/inquirer-providers';
 
@@ -18,13 +17,11 @@ const ReflectorAliasProvider = {
   providers: [
     Reflector,
     ReflectorAliasProvider,
-    requestProvider,
     inquirerProvider,
   ],
   exports: [
     Reflector,
     ReflectorAliasProvider,
-    requestProvider,
     inquirerProvider,
   ],
 })

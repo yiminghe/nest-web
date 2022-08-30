@@ -1,5 +1,4 @@
 import { ContextId, HostComponentInfo } from '../injector/instance-wrapper';
-import { REQUEST_CONTEXT_ID } from '../router/request/request-constants';
 
 export function createContextId(): ContextId {
   /**
@@ -47,14 +46,6 @@ export class ContextIdFactory {
   ): ContextId {
     if (!request) {
       return ContextIdFactory.create();
-    }
-    if (request[REQUEST_CONTEXT_ID as any]) {
-      return request[REQUEST_CONTEXT_ID as any];
-    }
-    for (const key of propsToInspect) {
-      if (request[key]?.[REQUEST_CONTEXT_ID]) {
-        return request[key][REQUEST_CONTEXT_ID];
-      }
     }
     if (!this.strategy) {
       return ContextIdFactory.create();

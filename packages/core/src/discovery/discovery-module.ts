@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module } from 'nest-web-common';
 import { MetadataScanner } from '../metadata-scanner';
 import { DiscoveryService } from './discovery-service';
 

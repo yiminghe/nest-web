@@ -9,10 +9,14 @@
     "url": "git@github.com:yiminghe/nest-web.git"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "tests/*"
   ],
   "engines": {
     "node": "16.x"
+  },
+  "scripts": {
+    "start": "yarn workspace app run start"
   },
   "dependencies": {
     "@babel/cli": "7.x",

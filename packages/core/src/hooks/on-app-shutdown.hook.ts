@@ -1,6 +1,5 @@
-import { OnApplicationShutdown } from '@nestjs/common';
-import { isFunction, isNil } from '@nestjs/common/utils/shared.utils';
-import { iterate } from 'iterare';
+import { OnApplicationShutdown } from 'nest-web-common';
+import { isFunction, isNil } from 'nest-web-common';
 import {
   getNonTransientInstances,
   getTransientInstances,
@@ -26,13 +25,12 @@ function callOperator(
   instances: InstanceWrapper[],
   signal?: string,
 ): Promise<any>[] {
-  return iterate(instances)
+  return (instances)
     .filter(instance => !isNil(instance))
     .filter(hasOnAppShutdownHook)
     .map(async instance =>
       (instance as any as OnApplicationShutdown).onApplicationShutdown(signal),
-    )
-    .toArray();
+    );
 }
 
 /**

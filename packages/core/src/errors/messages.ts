@@ -1,5 +1,5 @@
-import type { ForwardReference, Type, DynamicModule } from '@nestjs/common';
-import { isNil, isSymbol } from '@nestjs/common/utils/shared.utils';
+import type { ForwardReference, Type, DynamicModule } from 'nest-web-common';
+import { isNil, isSymbol } from 'nest-web-common';
 import {
   InjectorDependency,
   InjectorDependencyContext,

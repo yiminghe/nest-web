@@ -1,4 +1,4 @@
-import { Provider, Scope } from '@nestjs/common';
+import { Provider, Scope } from 'nest-web-common';
 import { INQUIRER } from './inquirer-constants';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function

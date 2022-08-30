@@ -46,6 +46,9 @@
   "peerDependencies": {
     "rxjs": "7.x"
   },
+  "dependencies": {
+    "uuid":"8.x"
+  },
   "scripts": {
     "pub": "yarn run build && cd pkg && npm publish",
     "build": "pika-pack build"

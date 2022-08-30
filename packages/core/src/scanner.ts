@@ -3,7 +3,7 @@ import {
   flatten,
   ForwardReference,
   Provider,
-} from '@nestjs/common';
+} from 'nest-web-common';
 import {
   CATCH_WATERMARK,
   CONTROLLER_WATERMARK,
@@ -14,31 +14,23 @@ import {
   MODULE_METADATA,
   PIPES_METADATA,
   ROUTE_ARGS_METADATA,
-} from '@nestjs/common/constants';
+} from 'nest-web-common';
 import {
-  CanActivate,
   ClassProvider,
-  ExceptionFilter,
   ExistingProvider,
   FactoryProvider,
   InjectionToken,
-  NestInterceptor,
-  PipeTransform,
   Scope,
   ValueProvider,
-} from '@nestjs/common/interfaces';
-import { Controller } from '@nestjs/common/interfaces/controllers/controller.interface';
-import { Injectable } from '@nestjs/common/interfaces/injectable.interface';
-import { Type } from '@nestjs/common/interfaces/type.interface';
-import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
+} from 'nest-web-common';
+import { Type } from 'nest-web-common';
+import { randomStringGenerator } from 'nest-web-common';
 import {
   isFunction,
   isNil,
   isUndefined,
-} from '@nestjs/common/utils/shared.utils';
-import { iterate } from 'iterare';
+} from 'nest-web-common';
 import { ApplicationConfig } from './application-config';
-import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from './constants';
 import { CircularDependencyException } from './errors/exceptions/circular-dependency.exception';
 import { InvalidClassModuleException } from './errors/exceptions/invalid-class-module.exception';
 import { InvalidModuleException } from './errors/exceptions/invalid-module.exception';
@@ -420,7 +412,6 @@ export class DependenciesScanner {
       this.container,
       this,
       this.container.getModuleCompiler(),
-      this.container.getHttpAdapterHostRef(),
     );
     const [instance] = await this.scanForModules(moduleDefinition);
     this.container.registerCoreModuleRef(instance);
@@ -431,16 +422,16 @@ export class DependenciesScanner {
    * to all controllers metadata storage
    */
   public addScopedEnhancersMetadata() {
-    iterate(this.applicationProvidersApplyMap)
+    (this.applicationProvidersApplyMap)
       .filter(wrapper => this.isRequestOrTransient(wrapper.scope))
       .forEach(({ moduleKey, providerKey }) => {
         const modulesContainer = this.container.getModules();
         const { injectables } = modulesContainer.get(moduleKey);
         const instanceWrapper = injectables.get(providerKey);
 
-        iterate(modulesContainer.values())
+        Array.from(modulesContainer.values())
           .map(module => module.controllers.values())
-          .flatten()
+          .flat()
           .forEach(controller =>
             controller.addEnhancerMetadata(instanceWrapper),
           );
@@ -485,27 +476,11 @@ export class DependenciesScanner {
 
   public getApplyProvidersMap(): { [type: string]: Function } {
     return {
-      [APP_INTERCEPTOR]: (interceptor: NestInterceptor) =>
-        this.applicationConfig.addGlobalInterceptor(interceptor),
-      [APP_PIPE]: (pipe: PipeTransform) =>
-        this.applicationConfig.addGlobalPipe(pipe),
-      [APP_GUARD]: (guard: CanActivate) =>
-        this.applicationConfig.addGlobalGuard(guard),
-      [APP_FILTER]: (filter: ExceptionFilter) =>
-        this.applicationConfig.addGlobalFilter(filter),
     };
   }
 
   public getApplyRequestProvidersMap(): { [type: string]: Function } {
     return {
-      [APP_INTERCEPTOR]: (interceptor: InstanceWrapper<NestInterceptor>) =>
-        this.applicationConfig.addGlobalRequestInterceptor(interceptor),
-      [APP_PIPE]: (pipe: InstanceWrapper<PipeTransform>) =>
-        this.applicationConfig.addGlobalRequestPipe(pipe),
-      [APP_GUARD]: (guard: InstanceWrapper<CanActivate>) =>
-        this.applicationConfig.addGlobalRequestGuard(guard),
-      [APP_FILTER]: (filter: InstanceWrapper<ExceptionFilter>) =>
-        this.applicationConfig.addGlobalRequestFilter(filter),
     };
   }
 

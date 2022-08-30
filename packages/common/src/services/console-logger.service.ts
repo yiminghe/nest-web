@@ -184,20 +184,19 @@ export class ConsoleLogger implements LoggerService {
     writeStreamType?: 'stdout' | 'stderr',
   ) {
     messages.forEach(message => {
-      const pidMessage = this.formatPid(process.pid);
       const contextMessage = context ? yellow(`[${context}] `) : '';
       const timestampDiff = this.updateAndGetTimestampDiff();
       const formattedLogLevel = logLevel.toUpperCase().padStart(7, ' ');
       const formattedMessage = this.formatMessage(
         logLevel,
         message,
-        pidMessage,
+        '[Nest] - ',
         formattedLogLevel,
         contextMessage,
         timestampDiff,
       );
 
-      process[writeStreamType ?? 'stdout'].write(formattedMessage);
+      console.log(formattedMessage);
     });
   }
 
@@ -239,7 +238,7 @@ export class ConsoleLogger implements LoggerService {
     if (!stack) {
       return;
     }
-    process.stderr.write(`${stack}\n`);
+    console.error(`${stack}\n`);
   }
 
   private updateAndGetTimestampDiff(): string {

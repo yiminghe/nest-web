@@ -1,5 +1,5 @@
-import { Type } from '@nestjs/common';
-import { isEmpty, isObject } from '@nestjs/common/utils/shared.utils';
+import { Type } from 'nest-web-common';
+import { isEmpty, isObject } from 'nest-web-common';
 
 /**
  * Helper class providing Nest reflection capabilities.

@@ -1,6 +1,4 @@
-import { Logger } from '@nestjs/common';
-import { ExternalContextCreator } from '../helpers/external-context-creator';
-import { HttpAdapterHost } from '../helpers/http-adapter-host';
+import { Logger } from 'nest-web-common';
 import { DependenciesScanner } from '../scanner';
 import { ModuleCompiler } from './compiler';
 import { NestContainer } from './container';
@@ -14,24 +12,11 @@ export class InternalCoreModuleFactory {
     container: NestContainer,
     scanner: DependenciesScanner,
     moduleCompiler: ModuleCompiler,
-    httpAdapterHost: HttpAdapterHost,
   ) {
     return InternalCoreModule.register([
       {
-        provide: ExternalContextCreator,
-        useValue: ExternalContextCreator.fromContainer(container),
-      },
-      {
         provide: ModulesContainer,
         useValue: container.getModules(),
-      },
-      {
-        provide: HttpAdapterHost,
-        useValue: httpAdapterHost,
-      },
-      {
-        provide: HttpAdapterHost.name,
-        useExisting: HttpAdapterHost,
       },
       {
         provide: LazyModuleLoader,

@@ -1,6 +1,5 @@
 export * from './bind.decorator';
 export * from './catch.decorator';
-export * from './controller.decorator';
 export * from './dependencies.decorator';
 export * from './exception-filters.decorator';
 export * from './inject.decorator';

@@ -1,4 +1,4 @@
-import { DynamicModule, Type } from '@nestjs/common/interfaces';
+import { DynamicModule, Type } from 'nest-web-common';
 import { ModuleTokenFactory } from './module-token-factory';
 
 export interface ModuleFactory {

@@ -1,4 +1,4 @@
-import { DynamicModule, Type } from '@nestjs/common';
+import { DynamicModule, Type } from 'nest-web-common';
 import { DependenciesScanner } from '../scanner';
 import { ModuleCompiler } from './compiler';
 import { InstanceLoader } from './instance-loader';

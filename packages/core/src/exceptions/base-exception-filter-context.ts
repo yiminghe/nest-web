@@ -1,8 +1,7 @@
-import { FILTER_CATCH_EXCEPTIONS } from '@nestjs/common/constants';
-import { Type } from '@nestjs/common/interfaces';
-import { ExceptionFilter } from '@nestjs/common/interfaces/exceptions/exception-filter.interface';
-import { isEmpty, isFunction } from '@nestjs/common/utils/shared.utils';
-import { iterate } from 'iterare';
+import { FILTER_CATCH_EXCEPTIONS } from 'nest-web-common';
+import { Type } from 'nest-web-common';
+import { ExceptionFilter } from 'nest-web-common';
+import { isEmpty, isFunction } from 'nest-web-common';
 import { ContextCreator } from '../helpers/context-creator';
 import { STATIC_CONTEXT } from '../injector/constants';
 import { NestContainer } from '../injector/container';
@@ -21,19 +20,18 @@ export class BaseExceptionFilterContext extends ContextCreator {
     inquirerId?: string,
   ): R {
     if (isEmpty(metadata)) {
-      return [] as R;
+      return ([] as unknown) as R;
     }
-    return iterate(metadata)
+    return (metadata)
       .filter(
         instance => instance && (isFunction(instance.catch) || instance.name),
       )
       .map(filter => this.getFilterInstance(filter, contextId, inquirerId))
       .filter(item => !!item)
       .map(instance => ({
-        func: instance.catch.bind(instance),
-        exceptionMetatypes: this.reflectCatchExceptions(instance),
-      }))
-      .toArray() as R;
+        func: instance!.catch.bind(instance),
+        exceptionMetatypes: this.reflectCatchExceptions(instance!),
+      })) as R;
   }
 
   public getFilterInstance(
@@ -41,7 +39,7 @@ export class BaseExceptionFilterContext extends ContextCreator {
     contextId = STATIC_CONTEXT,
     inquirerId?: string,
   ): ExceptionFilter | null {
-    const isObject = (filter as ExceptionFilter).catch;
+    const isObject = (filter as ExceptionFilter).catch as any;
     if (isObject) {
       return filter as ExceptionFilter;
     }

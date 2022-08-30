@@ -1,16 +1,14 @@
-import { DynamicModule, Provider } from '@nestjs/common';
-import { GLOBAL_MODULE_METADATA } from '@nestjs/common/constants';
-import { Injectable } from '@nestjs/common/interfaces/injectable.interface';
-import { Type } from '@nestjs/common/interfaces/type.interface';
+import { DynamicModule, Provider } from 'nest-web-common';
+import { GLOBAL_MODULE_METADATA } from 'nest-web-common';
+import { Injectable } from 'nest-web-common';
+import { Type } from 'nest-web-common';
 import { ApplicationConfig } from '../application-config';
 import { CircularDependencyException } from '../errors/exceptions/circular-dependency.exception';
 import { UndefinedForwardRefException } from '../errors/exceptions/undefined-forwardref.exception';
 import { UnknownModuleException } from '../errors/exceptions/unknown-module.exception';
-import { REQUEST } from '../router/request/request-constants';
 import { ModuleCompiler } from './compiler';
 import { ContextId } from './instance-wrapper';
 import { InternalCoreModule } from './internal-core-module';
-import { InternalProvidersStorage } from './internal-providers-storage';
 import { Module } from './module';
 import { ModuleTokenFactory } from './module-token-factory';
 import { ModulesContainer } from './modules-container';
@@ -24,7 +22,6 @@ export class NestContainer {
     string,
     Partial<DynamicModule>
   >();
-  private readonly internalProvidersStorage = new InternalProvidersStorage();
   private internalCoreModule: Module;
 
   constructor(
@@ -35,23 +32,6 @@ export class NestContainer {
     return this._applicationConfig;
   }
 
-  public setHttpAdapter(httpAdapter: any) {
-    this.internalProvidersStorage.httpAdapter = httpAdapter;
-
-    if (!this.internalProvidersStorage.httpAdapterHost) {
-      return;
-    }
-    const host = this.internalProvidersStorage.httpAdapterHost;
-    host.httpAdapter = httpAdapter;
-  }
-
-  public getHttpAdapterRef() {
-    return this.internalProvidersStorage.httpAdapter;
-  }
-
-  public getHttpAdapterHostRef() {
-    return this.internalProvidersStorage.httpAdapterHost;
-  }
 
   public async addModule(
     metatype: Type<any> | DynamicModule | Promise<DynamicModule>,

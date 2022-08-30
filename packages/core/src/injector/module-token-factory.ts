@@ -1,9 +1,7 @@
-import { DynamicModule } from '@nestjs/common';
-import { Type } from '@nestjs/common/interfaces/type.interface';
-import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util';
-import { isFunction, isSymbol } from '@nestjs/common/utils/shared.utils';
-import stringify from 'fast-safe-stringify';
-import * as hash from 'object-hash';
+import { DynamicModule } from 'nest-web-common';
+import { Type } from 'nest-web-common';
+import { randomStringGenerator } from 'nest-web-common';
+import { isFunction, isSymbol } from 'nest-web-common';
 
 export class ModuleTokenFactory {
   private readonly moduleIdsCache = new WeakMap<Type<unknown>, string>();
@@ -18,7 +16,7 @@ export class ModuleTokenFactory {
       module: this.getModuleName(metatype),
       dynamic: this.getDynamicMetadataToken(dynamicModuleMetadata),
     };
-    return hash(opaqueToken, { ignoreUnknown: true });
+    return JSON.stringify(opaqueToken);
   }
 
   public getDynamicMetadataToken(
@@ -28,7 +26,7 @@ export class ModuleTokenFactory {
     // The replacer function is also required in order to obtain real class names
     // instead of the unified "Function" key
     return dynamicModuleMetadata
-      ? stringify(dynamicModuleMetadata, this.replacer)
+      ? JSON.stringify(dynamicModuleMetadata, this.replacer)
       : '';
   }
 
@@ -53,7 +51,7 @@ export class ModuleTokenFactory {
       if (isClass) {
         return value.name;
       }
-      return hash(funcAsString, { ignoreUnknown: true });
+      return JSON.stringify(funcAsString);
     }
     if (isSymbol(value)) {
       return value.toString();

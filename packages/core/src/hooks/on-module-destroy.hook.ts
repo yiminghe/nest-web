@@ -1,6 +1,5 @@
-import { OnModuleDestroy } from '@nestjs/common';
-import { isFunction, isNil } from '@nestjs/common/utils/shared.utils';
-import { iterate } from 'iterare';
+import { OnModuleDestroy } from 'nest-web-common';
+import { isFunction, isNil } from 'nest-web-common';
 import {
   getNonTransientInstances,
   getTransientInstances,
@@ -23,13 +22,12 @@ function hasOnModuleDestroyHook(
  * Calls the given instances onModuleDestroy hook
  */
 function callOperator(instances: InstanceWrapper[]): Promise<any>[] {
-  return iterate(instances)
+  return (instances)
     .filter(instance => !isNil(instance))
     .filter(hasOnModuleDestroyHook)
     .map(async instance =>
       (instance as any as OnModuleDestroy).onModuleDestroy(),
-    )
-    .toArray();
+    );
 }
 
 /**
