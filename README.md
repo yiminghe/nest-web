@@ -1,2 +1,3 @@
-# nestjs-web
+# nest-web
+
 using nestjs on web
