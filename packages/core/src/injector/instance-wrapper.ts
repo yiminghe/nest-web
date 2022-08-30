@@ -1,16 +1,8 @@
 import { Logger, LoggerService, Provider, Scope, Type } from 'nest-web-common';
-import {
-  ClassProvider,
-  FactoryProvider,
-  ValueProvider,
-} from 'nest-web-common';
+import { ClassProvider, FactoryProvider, ValueProvider } from 'nest-web-common';
 import { clc } from 'nest-web-common';
 import { randomStringGenerator } from 'nest-web-common';
-import {
-  isNil,
-  isString,
-  isUndefined,
-} from 'nest-web-common';
+import { isNil, isString, isUndefined } from 'nest-web-common';
 import { STATIC_CONTEXT } from './constants';
 import {
   isClassProvider,
@@ -245,7 +237,7 @@ export class InstanceWrapper<T = any> {
     if (!introspectionResult || !(properties || enhancers)) {
       return introspectionResult;
     }
-    const propertiesHosts = (properties || []).map(item => item.wrapper);
+    const propertiesHosts = (properties || []).map((item) => item.wrapper);
     introspectionResult =
       introspectionResult && callback(propertiesHosts, lookupRegistry);
     if (!introspectionResult || !enhancers) {
@@ -381,9 +373,9 @@ export class InstanceWrapper<T = any> {
       return [];
     }
     const instances = Array.from(this.transientMap.values());
-    return (instances)
-      .map(item => item.get(STATIC_CONTEXT))
-      .filter(item => !!item);
+    return instances
+      .map((item) => item.get(STATIC_CONTEXT))
+      .filter((item) => !!item);
   }
 
   public mergeWith(provider: Provider) {
@@ -451,6 +443,6 @@ export class InstanceWrapper<T = any> {
   }
 
   private isDebugMode(): boolean {
-    return process.env.NODE_ENV==='development';
+    return process.env.NODE_ENV === 'development';
   }
 }

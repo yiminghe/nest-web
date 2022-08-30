@@ -249,7 +249,6 @@ export class Injector {
     const [dependencies, optionalDependenciesIds] = isFactoryProvider
       ? this.getFactoryProviderDependencies(wrapper)
       : this.getClassDependencies(wrapper);
-    debugger
     let isResolved = true;
     const resolveParam = async (param: unknown, index: number) => {
       try {
@@ -541,7 +540,7 @@ export class Injector {
     let children = Array.from(imports.values()).filter(identity);
     if (isTraversing) {
       const contextModuleExports = moduleRef.exports;
-      children = children.filter(child =>
+      children = children.filter((child) =>
         contextModuleExports.has(child.metatype),
       );
     }
@@ -668,9 +667,9 @@ export class Injector {
     if (!isObject(instance)) {
       return undefined;
     }
-    (properties)
-      .filter(item => !isNil(item.instance))
-      .forEach(item => (instance[item.key] = item.instance));
+    properties
+      .filter((item) => !isNil(item.instance))
+      .forEach((item) => (instance[item.key] = item.instance));
   }
 
   public async instantiateClass<T = any>(
@@ -756,7 +755,7 @@ export class Injector {
     parentInquirer?: InstanceWrapper,
   ): Promise<any[]> {
     const hosts: Array<InstanceWrapper<any> | undefined> = await Promise.all(
-      metadata.map(async item =>
+      metadata.map(async (item) =>
         this.resolveScopedComponentHost(
           item,
           contextId,
@@ -767,7 +766,7 @@ export class Injector {
     );
     const inquirerId = this.getInquirerId(inquirer);
     return hosts.map(
-      item =>
+      (item) =>
         item?.getInstanceByContextId(
           this.getContextId(contextId, item),
           inquirerId,
@@ -898,7 +897,7 @@ export class Injector {
   }
 
   private isDebugMode(): boolean {
-    return process.env.NODE_ENV==='development';
+    return process.env.NODE_ENV === 'development';
   }
 
   private getContextId(

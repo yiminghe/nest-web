@@ -60,7 +60,7 @@ export class LazyModuleLoader {
     moduleInstances: Module[],
   ): Map<string, Module> {
     moduleInstances = Array.from(new Set(moduleInstances));
-    return new Map(moduleInstances.map(ref => [ref.token, ref]));
+    return new Map(moduleInstances.map((ref) => [ref.token, ref]));
   }
 
   private getTargetModuleRef(moduleInstance: Module): ModuleRef {

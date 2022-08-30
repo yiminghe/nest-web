@@ -1,8 +1,4 @@
-import {
-  isConstructor,
-  isFunction,
-  isNil,
-} from 'nest-web-common';
+import { isConstructor, isFunction, isNil } from 'nest-web-common';
 
 export class MetadataScanner {
   public scanFromPrototype<T, R = any>(
@@ -13,7 +9,7 @@ export class MetadataScanner {
     const methodNames = new Set(this.getAllFilteredMethodNames(prototype));
     return Array.from(methodNames.values())
       .map(callback)
-      .filter(metadata => !isNil(metadata));
+      .filter((metadata) => !isNil(metadata));
   }
 
   *getAllFilteredMethodNames(prototype: object): IterableIterator<string> {
@@ -25,8 +21,7 @@ export class MetadataScanner {
       return !isConstructor(prop) && isFunction(prototype[prop]);
     };
     do {
-      yield* (Object.getOwnPropertyNames(prototype))
-        .filter(isMethod);
+      yield* Object.getOwnPropertyNames(prototype).filter(isMethod);
     } while (
       (prototype = Reflect.getPrototypeOf(prototype)) &&
       prototype !== Object.prototype

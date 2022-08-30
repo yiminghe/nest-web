@@ -27,7 +27,7 @@ export class InstanceLinksHost {
       throw new UnknownElementException(this.getInstanceNameByToken(token));
     }
     const instanceLink = moduleId
-      ? modulesMap.find(item => item.moduleId === moduleId)
+      ? modulesMap.find((item) => item.moduleId === moduleId)
       : modulesMap[modulesMap.length - 1];
 
     if (!instanceLink) {
@@ -38,7 +38,7 @@ export class InstanceLinksHost {
 
   private initialize() {
     const modules = this.container.getModules();
-    modules.forEach(moduleRef => {
+    modules.forEach((moduleRef) => {
       const { providers, injectables, controllers } = moduleRef;
       providers.forEach((wrapper, token) =>
         this.addLink(wrapper, token, moduleRef, 'providers'),

@@ -30,7 +30,6 @@ export class NestContainer {
     return this._applicationConfig;
   }
 
-
   public async addModule(
     metatype: Type<any> | DynamicModule | Promise<DynamicModule>,
     scope: Type<any>[],
@@ -80,7 +79,7 @@ export class NestContainer {
     if (!modules) {
       return;
     }
-    await Promise.all(modules.map(module => this.addModule(module, scope)));
+    await Promise.all(modules.map((module) => this.addModule(module, scope)));
   }
 
   public isGlobalModule(
@@ -142,11 +141,7 @@ export class NestContainer {
     return moduleRef.addProvider(provider);
   }
 
-  public addInjectable(
-    injectable: Provider,
-    token: string,
-    host?: Type<any>,
-  ) {
+  public addInjectable(injectable: Provider, token: string, host?: Type<any>) {
     if (!this.modules.has(token)) {
       throw new UnknownModuleException();
     }
@@ -175,15 +170,15 @@ export class NestContainer {
   }
 
   public replace(toReplace: any, options: any & { scope: any[] | null }) {
-    this.modules.forEach(moduleRef => moduleRef.replace(toReplace, options));
+    this.modules.forEach((moduleRef) => moduleRef.replace(toReplace, options));
   }
 
   public bindGlobalScope() {
-    this.modules.forEach(moduleRef => this.bindGlobalsToImports(moduleRef));
+    this.modules.forEach((moduleRef) => this.bindGlobalsToImports(moduleRef));
   }
 
   public bindGlobalsToImports(moduleRef: Module) {
-    this.globalModules.forEach(globalModule =>
+    this.globalModules.forEach((globalModule) =>
       this.bindGlobalModuleToModule(moduleRef, globalModule),
     );
   }

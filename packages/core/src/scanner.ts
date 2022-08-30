@@ -25,11 +25,7 @@ import {
 } from 'nest-web-common';
 import { Type } from 'nest-web-common';
 import { randomStringGenerator } from 'nest-web-common';
-import {
-  isFunction,
-  isNil,
-  isUndefined,
-} from 'nest-web-common';
+import { isFunction, isNil, isUndefined } from 'nest-web-common';
 import { ApplicationConfig } from './application-config';
 import { CircularDependencyException } from './errors/exceptions/circular-dependency.exception';
 import { InvalidClassModuleException } from './errors/exceptions/invalid-class-module.exception';
@@ -57,7 +53,7 @@ export class DependenciesScanner {
     private readonly container: NestContainer,
     private readonly metadataScanner: MetadataScanner,
     private readonly applicationConfig = new ApplicationConfig(),
-  ) { }
+  ) {}
 
   public async scan(module: Type<any>) {
     await this.registerCoreModule();
@@ -92,16 +88,16 @@ export class DependenciesScanner {
       moduleDefinition as Type<any> | DynamicModule,
     )
       ? this.reflectMetadata(
-        MODULE_METADATA.IMPORTS,
-        moduleDefinition as Type<any>,
-      )
-      : [
-        ...this.reflectMetadata(
           MODULE_METADATA.IMPORTS,
-          (moduleDefinition as DynamicModule).module,
-        ),
-        ...((moduleDefinition as DynamicModule).imports || []),
-      ];
+          moduleDefinition as Type<any>,
+        )
+      : [
+          ...this.reflectMetadata(
+            MODULE_METADATA.IMPORTS,
+            (moduleDefinition as DynamicModule).module,
+          ),
+          ...((moduleDefinition as DynamicModule).imports || []),
+        ];
 
     let registeredModuleRefs = [];
     for (const [index, innerModule] of modules.entries()) {
@@ -183,7 +179,7 @@ export class DependenciesScanner {
         MODULE_METADATA.PROVIDERS as 'providers',
       ),
     ];
-    providers.forEach(provider => {
+    providers.forEach((provider) => {
       this.insertProvider(provider, token);
       this.reflectDynamicMetadata(provider, token);
     });
@@ -205,7 +201,7 @@ export class DependenciesScanner {
         MODULE_METADATA.EXPORTS as 'exports',
       ),
     ];
-    exports.forEach(exportedProvider =>
+    exports.forEach((exportedProvider) =>
       this.insertExportedProvider(exportedProvider, token),
     );
   }
@@ -229,7 +225,7 @@ export class DependenciesScanner {
     ].filter(isFunction);
     const injectables = Array.from(new Set(combinedInjectables));
 
-    injectables.forEach(injectable =>
+    injectables.forEach((injectable) =>
       this.insertInjectable(injectable, token, component),
     );
   }
@@ -242,22 +238,20 @@ export class DependenciesScanner {
     const paramsMetadata = this.metadataScanner.scanFromPrototype(
       null,
       component.prototype,
-      method => Reflect.getMetadata(metadataKey, component, method),
+      (method) => Reflect.getMetadata(metadataKey, component, method),
     );
     const paramsInjectables = this.flatten(paramsMetadata).map(
       (param: Record<string, any>) =>
-        flatten(Object.keys(param).map(k => param[k].pipes)).filter(isFunction),
+        flatten(Object.keys(param).map((k) => param[k].pipes)).filter(
+          isFunction,
+        ),
     );
     flatten(paramsInjectables).forEach((injectable: Type<any>) =>
       this.insertInjectable(injectable, token, component),
     );
   }
 
-  public reflectKeyMetadata(
-    component: Type<any>,
-    key: string,
-    method: string,
-  ) {
+  public reflectKeyMetadata(component: Type<any>, key: string, method: string) {
     let prototype = component.prototype;
     do {
       const descriptor = Reflect.getOwnPropertyDescriptor(prototype, method);
@@ -287,7 +281,7 @@ export class DependenciesScanner {
       modulesStack.push(moduleRef);
 
       const moduleImports = moduleRef.imports;
-      moduleImports.forEach(importedModuleRef => {
+      moduleImports.forEach((importedModuleRef) => {
         if (importedModuleRef) {
           importedModuleRef.distance = distance;
           calculateDistance(importedModuleRef, distance + 1);
@@ -328,17 +322,18 @@ export class DependenciesScanner {
     const providersKeys = Object.keys(applyProvidersMap);
     const type = (
       provider as
-      | ClassProvider
-      | ValueProvider
-      | FactoryProvider
-      | ExistingProvider
+        | ClassProvider
+        | ValueProvider
+        | FactoryProvider
+        | ExistingProvider
     ).provide;
 
     if (!providersKeys.includes(type as string)) {
       return this.container.addProvider(provider as any, token);
     }
-    const providerToken = `${type as string
-      } (UUID: ${randomStringGenerator()})`;
+    const providerToken = `${
+      type as string
+    } (UUID: ${randomStringGenerator()})`;
 
     let scope = (provider as ClassProvider | FactoryProvider).scope;
     if (isNil(scope) && (provider as ClassProvider).useClass) {
@@ -374,10 +369,7 @@ export class DependenciesScanner {
     this.container.addInjectable(injectable, token, host);
   }
 
-  public insertExportedProvider(
-    exportedProvider: Type<any>,
-    token: string,
-  ) {
+  public insertExportedProvider(exportedProvider: Type<any>, token: string) {
     this.container.addExportedProvider(exportedProvider, token);
   }
 
@@ -404,17 +396,17 @@ export class DependenciesScanner {
    * to all controllers metadata storage
    */
   public addScopedEnhancersMetadata() {
-    (this.applicationProvidersApplyMap)
-      .filter(wrapper => this.isRequestOrTransient(wrapper.scope))
+    this.applicationProvidersApplyMap
+      .filter((wrapper) => this.isRequestOrTransient(wrapper.scope))
       .forEach(({ moduleKey, providerKey }) => {
         const modulesContainer = this.container.getModules();
         const { injectables } = modulesContainer.get(moduleKey);
         const instanceWrapper = injectables.get(providerKey);
 
         Array.from(modulesContainer.values())
-          .map(module => module.controllers.values())
+          .map((module) => module.controllers.values())
           .flat()
-          .forEach(controller =>
+          .forEach((controller) =>
             controller.addEnhancerMetadata(instanceWrapper),
           );
       });
@@ -457,13 +449,11 @@ export class DependenciesScanner {
   }
 
   public getApplyProvidersMap(): { [type: string]: Function } {
-    return {
-    };
+    return {};
   }
 
   public getApplyRequestProvidersMap(): { [type: string]: Function } {
-    return {
-    };
+    return {};
   }
 
   public isDynamicModule(

@@ -1,4 +1,4 @@
-import { Observable,map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Inject, Injectable, Optional } from '../decorators/core';
 import { CallHandler, ExecutionContext, NestInterceptor } from '../interfaces';
 import { ClassTransformOptions } from '../interfaces/external/class-transform-options.interface';
@@ -29,7 +29,7 @@ export class ClassSerializerInterceptor implements NestInterceptor {
     @Optional()
     protected readonly defaultOptions: ClassSerializerInterceptorOptions = {},
   ) {
-    classTransformer=defaultOptions.transformerPackage!;
+    classTransformer = defaultOptions.transformerPackage!;
   }
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
@@ -59,7 +59,7 @@ export class ClassSerializerInterceptor implements NestInterceptor {
     }
 
     return Array.isArray(response)
-      ? response.map(item => this.transformToPlain(item, options))
+      ? response.map((item) => this.transformToPlain(item, options))
       : this.transformToPlain(response, options);
   }
 

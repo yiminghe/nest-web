@@ -22,10 +22,10 @@ function hasOnModuleDestroyHook(
  * Calls the given instances onModuleDestroy hook
  */
 function callOperator(instances: InstanceWrapper[]): Promise<any>[] {
-  return (instances)
-    .filter(instance => !isNil(instance))
+  return instances
+    .filter((instance) => !isNil(instance))
     .filter(hasOnModuleDestroyHook)
-    .map(async instance =>
+    .map(async (instance) =>
       (instance as any as OnModuleDestroy).onModuleDestroy(),
     );
 }

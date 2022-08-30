@@ -1,8 +1,6 @@
 import { ExecutionContext } from 'nest-web-common';
 import { Type } from 'nest-web-common';
-import {
-  ContextType
-} from 'nest-web-common';
+import { ContextType } from 'nest-web-common';
 
 export class ExecutionContextHost implements ExecutionContext {
   private contextType = 'http';

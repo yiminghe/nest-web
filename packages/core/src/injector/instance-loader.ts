@@ -27,7 +27,7 @@ export class InstanceLoader {
   }
 
   private createPrototypes(modules: Map<string, Module>) {
-    modules.forEach(moduleRef => {
+    modules.forEach((moduleRef) => {
       this.createPrototypesOfProviders(moduleRef);
       this.createPrototypesOfInjectables(moduleRef);
       this.createPrototypesOfControllers(moduleRef);
@@ -36,7 +36,7 @@ export class InstanceLoader {
 
   private async createInstances(modules: Map<string, Module>) {
     await Promise.all(
-      Array.from(modules.values()).map(async moduleRef => {
+      Array.from(modules.values()).map(async (moduleRef) => {
         await this.createInstancesOfProviders(moduleRef);
         await this.createInstancesOfInjectables(moduleRef);
         await this.createInstancesOfControllers(moduleRef);
@@ -50,7 +50,7 @@ export class InstanceLoader {
 
   private createPrototypesOfProviders(moduleRef: Module) {
     const { providers } = moduleRef;
-    providers.forEach(wrapper =>
+    providers.forEach((wrapper) =>
       this.injector.loadPrototype<any>(wrapper, providers),
     );
   }
@@ -59,13 +59,13 @@ export class InstanceLoader {
     const { providers } = moduleRef;
     const wrappers = Array.from(providers.values());
     await Promise.all(
-      wrappers.map(item => this.injector.loadProvider(item, moduleRef)),
+      wrappers.map((item) => this.injector.loadProvider(item, moduleRef)),
     );
   }
 
   private createPrototypesOfControllers(moduleRef: Module) {
     const { controllers } = moduleRef;
-    controllers.forEach(wrapper =>
+    controllers.forEach((wrapper) =>
       this.injector.loadPrototype<Controller>(wrapper, controllers),
     );
   }
@@ -76,7 +76,7 @@ export class InstanceLoader {
 
   private createPrototypesOfInjectables(moduleRef: Module) {
     const { injectables } = moduleRef;
-    injectables.forEach(wrapper =>
+    injectables.forEach((wrapper) =>
       this.injector.loadPrototype(wrapper, injectables),
     );
   }
@@ -85,7 +85,7 @@ export class InstanceLoader {
     const { injectables } = moduleRef;
     const wrappers = Array.from(injectables.values());
     await Promise.all(
-      wrappers.map(item => this.injector.loadInjectable(item, moduleRef)),
+      wrappers.map((item) => this.injector.loadInjectable(item, moduleRef)),
     );
   }
 

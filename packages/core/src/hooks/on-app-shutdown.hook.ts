@@ -25,10 +25,10 @@ function callOperator(
   instances: InstanceWrapper[],
   signal?: string,
 ): Promise<any>[] {
-  return (instances)
-    .filter(instance => !isNil(instance))
+  return instances
+    .filter((instance) => !isNil(instance))
     .filter(hasOnAppShutdownHook)
-    .map(async instance =>
+    .map(async (instance) =>
       (instance as any as OnApplicationShutdown).onApplicationShutdown(signal),
     );
 }

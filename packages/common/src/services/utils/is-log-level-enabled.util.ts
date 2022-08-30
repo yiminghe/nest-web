@@ -24,7 +24,7 @@ export function isLogLevelEnabled(
     return true;
   }
   const highestLogLevelValue = logLevels
-    .map(level => LOG_LEVEL_VALUES[level])
+    .map((level) => LOG_LEVEL_VALUES[level])
     .sort((a, b) => b - a)?.[0];
 
   const targetLevelValue = LOG_LEVEL_VALUES[targetLevel];

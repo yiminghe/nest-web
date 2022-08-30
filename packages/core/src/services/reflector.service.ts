@@ -37,7 +37,7 @@ export class Reflector {
     metadataKey: TKey,
     targets: (Type<any> | Function)[],
   ): TResult {
-    return (targets || []).map(target =>
+    return (targets || []).map((target) =>
       Reflect.getMetadata(metadataKey, target),
     ) as TResult;
   }
@@ -56,7 +56,7 @@ export class Reflector {
     const metadataCollection = this.getAll<TResult, TKey>(
       metadataKey,
       targets,
-    ).filter(item => item !== undefined);
+    ).filter((item) => item !== undefined);
 
     if (isEmpty(metadataCollection)) {
       return metadataCollection as TResult;
@@ -86,6 +86,6 @@ export class Reflector {
     metadataKey: TKey,
     targets: (Type<any> | Function)[],
   ): TResult {
-    return this.getAll(metadataKey, targets).find(item => item !== undefined);
+    return this.getAll(metadataKey, targets).find((item) => item !== undefined);
   }
 }

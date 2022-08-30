@@ -21,7 +21,9 @@ export class DiscoveryService {
     options: DiscoveryOptions = {},
     modules: Module[] = this.getModules(options),
   ): InstanceWrapper[] {
-    const providers = modules.map(item => Array.from(item.providers.values()));
+    const providers = modules.map((item) =>
+      Array.from(item.providers.values()),
+    );
     return flatten(providers);
   }
 
@@ -29,7 +31,9 @@ export class DiscoveryService {
     options: DiscoveryOptions = {},
     modules: Module[] = this.getModules(options),
   ): InstanceWrapper[] {
-    const controllers = modules.map(item => Array.from(item.controllers.values()));
+    const controllers = modules.map((item) =>
+      Array.from(item.controllers.values()),
+    );
     return flatten(controllers);
   }
 
@@ -45,7 +49,7 @@ export class DiscoveryService {
   private includeWhitelisted(include: Function[]): Module[] {
     const moduleRefs = Array.from(this.modulesContainer.values());
     return moduleRefs.filter(({ metatype }) =>
-      include.some(item => item === metatype),
+      include.some((item) => item === metatype),
     );
   }
 }

@@ -1,5 +1,3 @@
-
-
 import { INestApplicationContext } from './nest-application-context.interface';
 import { VersioningOptions } from './version-options.interface';
 

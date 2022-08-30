@@ -1,6 +1,6 @@
 {
   "name": "nest-web",
-  "version": "9.0.11",
+  "version": "9.0.12",
   "description": "Using nestjs on web",
   "license": "MIT",
   "repository": {
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "nest-web-common": "9.0.11",
-    "nest-web-core": "9.0.11"
+    "nest-web-core": "9.0.12"
   },
   "scripts": {
     "pub": "npm publish"

@@ -1,7 +1,4 @@
-import {
-  ExceptionFilter,
-  Logger,
-} from 'nest-web-common';
+import { ExceptionFilter, Logger } from 'nest-web-common';
 import { isObject } from 'nest-web-common';
 
 export class BaseExceptionFilter<T = any> implements ExceptionFilter<T> {
@@ -11,9 +8,7 @@ export class BaseExceptionFilter<T = any> implements ExceptionFilter<T> {
     return this.handleUnknownError(exception);
   }
 
-  public handleUnknownError(
-    exception: T
-  ) {
+  public handleUnknownError(exception: T) {
     if (this.isExceptionObject(exception)) {
       return BaseExceptionFilter.logger.error(
         exception.message,

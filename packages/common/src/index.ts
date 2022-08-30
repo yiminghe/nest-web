@@ -50,10 +50,7 @@ export type {
   VersionValue,
   WsExceptionFilter,
 } from './interfaces';
-export {
-  Scope,
-  VERSION_NEUTRAL,
-} from './interfaces';
+export { Scope, VERSION_NEUTRAL } from './interfaces';
 export * from './module-utils';
 export * from './serializer';
 export * from './services';

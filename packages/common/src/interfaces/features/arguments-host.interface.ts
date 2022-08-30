@@ -67,7 +67,7 @@ export interface ArgumentsHost {
    * @param index index of argument to retrieve
    */
   getArgByIndex<T = any>(index: number): T;
-  
+
   /**
    * Returns the current execution context type (string)
    */

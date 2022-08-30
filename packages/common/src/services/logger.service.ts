@@ -57,7 +57,7 @@ function WrapBuffer(
   target: object,
   propertyKey: string | symbol,
   descriptor: TypedPropertyDescriptor<any>,
-)  {
+) {
   const originalFn = descriptor.value;
   descriptor.value = function (...args: unknown[]) {
     if (Logger.isBufferAttached) {
@@ -228,7 +228,7 @@ export class Logger implements LoggerService {
    */
   static flush() {
     this.isBufferAttached = false;
-    this.logBuffer.forEach(item =>
+    this.logBuffer.forEach((item) =>
       item.methodRef(...(item.arguments as [string])),
     );
     this.logBuffer = [];

@@ -145,8 +145,6 @@ export class NestApplicationContext implements INestApplicationContext {
     this.shouldFlushLogsOnOverride = true;
   }
 
- 
-
   protected async dispose(): Promise<void> {
     // Nest application context has no server
     // to dispose, therefore just call a noop

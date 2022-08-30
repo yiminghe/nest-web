@@ -20,15 +20,15 @@ export class BaseExceptionFilterContext extends ContextCreator {
     inquirerId?: string,
   ): R {
     if (isEmpty(metadata)) {
-      return ([] as unknown) as R;
+      return [] as unknown as R;
     }
-    return (metadata)
+    return metadata
       .filter(
-        instance => instance && (isFunction(instance.catch) || instance.name),
+        (instance) => instance && (isFunction(instance.catch) || instance.name),
       )
-      .map(filter => this.getFilterInstance(filter, contextId, inquirerId))
-      .filter(item => !!item)
-      .map(instance => ({
+      .map((filter) => this.getFilterInstance(filter, contextId, inquirerId))
+      .filter((item) => !!item)
+      .map((instance) => ({
         func: instance!.catch.bind(instance),
         exceptionMetatypes: this.reflectCatchExceptions(instance!),
       })) as R;

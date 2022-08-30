@@ -8,11 +8,11 @@ import { InstanceToken } from '../module';
 export function getTransientInstances(
   instances: [InstanceToken, InstanceWrapper][],
 ): InstanceWrapper[] {
-  return (instances)
+  return instances
     .filter(([_, wrapper]) => wrapper.isDependencyTreeStatic())
     .map(([_, wrapper]) => wrapper.getStaticTransientInstances())
     .flat()
-    .filter(item => !!item)
+    .filter((item) => !!item)
     .map(({ instance }: any) => instance) as InstanceWrapper[];
 }
 
@@ -23,7 +23,7 @@ export function getTransientInstances(
 export function getNonTransientInstances(
   instances: [InstanceToken, InstanceWrapper][],
 ): InstanceWrapper[] {
-  return (instances)
+  return instances
     .filter(
       ([key, wrapper]) =>
         wrapper.isDependencyTreeStatic() && !wrapper.isTransient,

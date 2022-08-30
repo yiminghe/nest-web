@@ -1,7 +1,4 @@
-import {
-  ExceptionFilter,
-  VersioningOptions,
-} from 'nest-web-common';
+import { ExceptionFilter, VersioningOptions } from 'nest-web-common';
 
 export class ApplicationConfig {
   private globalFilters: Array<ExceptionFilter> = [];

@@ -3788,13 +3788,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"app@workspace:tests/app":
+"app@workspace:examples/app":
   version: 0.0.0-use.local
-  resolution: "app@workspace:tests/app"
+  resolution: "app@workspace:examples/app"
   dependencies:
     "@yiminghe/react-scripts": 5.x
-    nest-web-common: "workspace:*"
-    nest-web-core: "workspace:*"
+    nest-web: "workspace:9.x"
     typescript: 4.x
   languageName: unknown
   linkType: soft
@@ -10184,7 +10183,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nest-web-common@9.0.11, nest-web-common@workspace:*, nest-web-common@workspace:packages/common":
+"nest-web-common@9.0.11, nest-web-common@workspace:packages/common":
   version: 0.0.0-use.local
   resolution: "nest-web-common@workspace:packages/common"
   dependencies:
@@ -10199,7 +10198,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"nest-web-core@9.0.11, nest-web-core@workspace:*, nest-web-core@workspace:packages/core":
+"nest-web-core@9.0.12, nest-web-core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "nest-web-core@workspace:packages/core"
   dependencies:
@@ -10243,12 +10242,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"nest-web@workspace:packages/web":
+"nest-web@workspace:9.x, nest-web@workspace:packages/web":
   version: 0.0.0-use.local
   resolution: "nest-web@workspace:packages/web"
   dependencies:
     nest-web-common: 9.0.11
-    nest-web-core: 9.0.11
+    nest-web-core: 9.0.12
   languageName: unknown
   linkType: soft
 

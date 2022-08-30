@@ -2,12 +2,7 @@ import {
   PARAMTYPES_METADATA,
   RESPONSE_PASSTHROUGH_METADATA,
 } from 'nest-web-common';
-import {
-  ContextType,
-  Controller,
-  PipeTransform,
-  Type,
-} from 'nest-web-common';
+import { ContextType, Controller, PipeTransform, Type } from 'nest-web-common';
 import { isFunction } from 'nest-web-common';
 import { ExecutionContextHost } from './execution-context-host';
 
@@ -50,7 +45,7 @@ export class ContextUtils {
 
   public getArgumentsLength<T>(keys: string[], metadata: T): number {
     return keys.length
-      ? Math.max(...keys.map(key => metadata[key].index)) + 1
+      ? Math.max(...keys.map((key) => metadata[key].index)) + 1
       : 0;
   }
 
@@ -67,7 +62,7 @@ export class ContextUtils {
     if (!paramtypes) {
       return paramsProperties;
     }
-    return paramsProperties.map(param => ({
+    return paramsProperties.map((param) => ({
       ...param,
       metatype: paramtypes[param.index],
     }));

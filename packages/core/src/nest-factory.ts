@@ -1,6 +1,4 @@
-import {
-  INestApplicationContext,
-} from 'nest-web-common';
+import { INestApplicationContext } from 'nest-web-common';
 import { NestApplicationContextOptions } from 'nest-web-common';
 import { NestApplicationOptions } from 'nest-web-common';
 import { Logger } from 'nest-web-common';
@@ -24,7 +22,6 @@ export class NestFactoryStatic {
   });
   private abortOnError = true;
   private autoFlushLogs = false;
-
 
   /**
    * Creates an instance of NestApplicationContext.
@@ -147,10 +144,10 @@ export class NestFactoryStatic {
     this.autoFlushLogs = autoFlushLogs ?? true;
   }
 
-  private setAbortOnError(
-    serverOrOptions?:  NestApplicationOptions
-  ) {
-    this.abortOnError = !(serverOrOptions && serverOrOptions.abortOnError === false);
+  private setAbortOnError(serverOrOptions?: NestApplicationOptions) {
+    this.abortOnError = !(
+      serverOrOptions && serverOrOptions.abortOnError === false
+    );
   }
 }
 

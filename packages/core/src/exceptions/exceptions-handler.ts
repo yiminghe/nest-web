@@ -1,4 +1,4 @@
-import {  Type } from 'nest-web-common';
+import { Type } from 'nest-web-common';
 import { ExceptionFilterMetadata } from 'nest-web-common';
 import { ArgumentsHost } from 'nest-web-common';
 import { isEmpty } from 'nest-web-common';
@@ -8,7 +8,7 @@ import { BaseExceptionFilter } from './base-exception-filter';
 export class ExceptionsHandler extends BaseExceptionFilter {
   private filters: ExceptionFilterMetadata[] = [];
 
-  public next(exception: Error  | any, ctx: ArgumentsHost) {
+  public next(exception: Error | any, ctx: ArgumentsHost) {
     if (this.invokeCustomFilters(exception, ctx)) {
       return;
     }

@@ -1,3 +1,3 @@
 export interface NestModule {
-  configure(consumer: any):void;
+  configure(consumer: any): void;
 }

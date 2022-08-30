@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "nest-web": "9.0.11"
+    "nest-web": "workspace:9.x"
   },
   "devDependencies": {
     "@yiminghe/react-scripts": "5.x",

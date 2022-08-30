@@ -173,7 +173,7 @@ export class ConfigurableModuleBuilder<
     this.options.optionsInjectionToken ??= this.options.moduleName
       ? this.constructInjectionTokenString()
       : generateOptionsInjectionToken();
-    this.transformModuleDefinition ??= definition => definition;
+    this.transformModuleDefinition ??= (definition) => definition;
 
     return {
       ConfigurableModuleClass:
@@ -259,8 +259,8 @@ export class ConfigurableModuleBuilder<
         const extrasKeys = Object.keys(extras);
 
         Object.keys(input)
-          .filter(key => !extrasKeys.includes(key))
-          .forEach(key => {
+          .filter((key) => !extrasKeys.includes(key))
+          .forEach((key) => {
             moduleOptions[key] = input[key];
           });
         return moduleOptions as ModuleOptions;

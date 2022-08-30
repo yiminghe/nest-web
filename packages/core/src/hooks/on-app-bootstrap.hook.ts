@@ -24,10 +24,10 @@ function hasOnAppBootstrapHook(
  * Calls the given instances
  */
 function callOperator(instances: InstanceWrapper[]): Promise<any>[] {
-  return (instances)
-    .filter(instance => !isNil(instance))
+  return instances
+    .filter((instance) => !isNil(instance))
     .filter(hasOnAppBootstrapHook)
-    .map(async instance =>
+    .map(async (instance) =>
       (instance as any as OnApplicationBootstrap).onApplicationBootstrap(),
     );
 }

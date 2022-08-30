@@ -39,10 +39,7 @@ export type InstanceToken = InjectionToken;
 export class Module {
   private readonly _id: string;
   private readonly _imports = new Set<Module>();
-  private readonly _providers = new Map<
-    InstanceToken,
-    InstanceWrapper<any>
-  >();
+  private readonly _providers = new Map<InstanceToken, InstanceWrapper<any>>();
   private readonly _injectables = new Map<
     InstanceToken,
     InstanceWrapper<any>
@@ -192,10 +189,7 @@ export class Module {
     );
   }
 
-  public addInjectable<T extends any>(
-    injectable: Provider,
-    host?: Type<T>,
-  ) {
+  public addInjectable<T extends any>(injectable: Provider, host?: Type<T>) {
     if (this.isCustomProvider(injectable)) {
       return this.addCustomProvider(injectable, this._injectables);
     }
@@ -383,7 +377,7 @@ export class Module {
       new InstanceWrapper({
         token: providerToken,
         name: (providerToken as Function)?.name || providerToken,
-        metatype: (instance => instance) as any,
+        metatype: ((instance) => instance) as any,
         instance: null,
         isResolved: false,
         inject: [useExisting],
@@ -429,9 +423,9 @@ export class Module {
       return token;
     }
     const imports = Array.from(this._imports.values())
-      .filter(item => !!item)
+      .filter((item) => !!item)
       .map(({ metatype }) => metatype)
-      .filter(metatype => !!metatype);
+      .filter((metatype) => !!metatype);
 
     if (!imports.includes(token as Type<unknown>)) {
       const { name } = this.metatype;
@@ -499,10 +493,10 @@ export class Module {
     return this._providers.get(name) as InstanceWrapper<T>;
   }
 
-  public getNonAliasProviders(): Array<
-    [InstanceToken, InstanceWrapper<any>]
-  > {
-    return Array.from(this._providers.entries()).filter(([_, wrapper]) => !wrapper.isAlias);
+  public getNonAliasProviders(): Array<[InstanceToken, InstanceWrapper<any>]> {
+    return Array.from(this._providers.entries()).filter(
+      ([_, wrapper]) => !wrapper.isAlias,
+    );
   }
 
   public createModuleReferenceType(): Type<ModuleRef> {

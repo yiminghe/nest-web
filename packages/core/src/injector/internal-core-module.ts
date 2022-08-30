@@ -14,16 +14,8 @@ const ReflectorAliasProvider = {
 
 @Global()
 @Module({
-  providers: [
-    Reflector,
-    ReflectorAliasProvider,
-    inquirerProvider,
-  ],
-  exports: [
-    Reflector,
-    ReflectorAliasProvider,
-    inquirerProvider,
-  ],
+  providers: [Reflector, ReflectorAliasProvider, inquirerProvider],
+  exports: [Reflector, ReflectorAliasProvider, inquirerProvider],
 })
 export class InternalCoreModule {
   static register(
@@ -32,7 +24,7 @@ export class InternalCoreModule {
     return {
       module: InternalCoreModule,
       providers: [...providers],
-      exports: [...providers.map(item => item.provide)],
+      exports: [...providers.map((item) => item.provide)],
     };
   }
 }

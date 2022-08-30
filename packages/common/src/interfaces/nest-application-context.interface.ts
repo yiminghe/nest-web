@@ -62,7 +62,6 @@ export interface INestApplicationContext {
    */
   flushLogs(): void;
 
-
   /**
    * Initializes the Nest application.
    * Calls the Nest lifecycle events.

@@ -20,10 +20,10 @@ function hasOnModuleInitHook(instance: unknown): instance is OnModuleInit {
  * Calls the given instances
  */
 function callOperator(instances: InstanceWrapper[]): Promise<any>[] {
-  return (instances)
-    .filter(instance => !isNil(instance))
+  return instances
+    .filter((instance) => !isNil(instance))
     .filter(hasOnModuleInitHook)
-    .map(async instance => (instance as any as OnModuleInit).onModuleInit());
+    .map(async (instance) => (instance as any as OnModuleInit).onModuleInit());
 }
 
 /**

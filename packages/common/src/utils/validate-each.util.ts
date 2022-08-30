@@ -23,7 +23,7 @@ export function validateEach(
   if (!context || !context.name) {
     return true;
   }
-  const errors = arr.some(str => !predicate(str));
+  const errors = arr.some((str) => !predicate(str));
   if (errors) {
     throw new InvalidDecoratorItemException(decorator, item, context.name);
   }

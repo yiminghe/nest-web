@@ -183,7 +183,7 @@ export class ConsoleLogger implements LoggerService {
     logLevel: LogLevel = 'log',
     writeStreamType?: 'stdout' | 'stderr',
   ) {
-    messages.forEach(message => {
+    messages.forEach((message) => {
       const contextMessage = context ? yellow(`[${context}] `) : '';
       const timestampDiff = this.updateAndGetTimestampDiff();
       const formattedLogLevel = logLevel.toUpperCase().padStart(7, ' ');

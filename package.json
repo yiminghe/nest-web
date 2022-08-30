@@ -9,14 +9,16 @@
   },
   "workspaces": [
     "packages/*",
-    "tests/*"
+    "examples/*"
   ],
   "engines": {
     "node": "16.x"
   },
   "scripts": {
+    "prettier": "prettier --write \"{packages,scripts,examples}/**/*.{js,tsx,ts,jsx}\"",
     "start": "yarn workspace app run start",
-    "md": "ts-node scripts/syncMd.ts"
+    "md": "ts-node scripts/syncMd.ts",
+    "pub": "sh scripts/pub.sh"
   },
   "dependencies": {
     "@babel/cli": "7.x",
