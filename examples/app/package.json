@@ -11,6 +11,7 @@
     "typescript": "4.x"
   },
   "scripts": {
+    "postinstall": "yarn run patch",
     "patch": "node scripts/patch",
     "start": "react-scripts start",
     "build": "react-scripts build",
