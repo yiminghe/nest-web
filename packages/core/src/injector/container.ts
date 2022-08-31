@@ -158,11 +158,7 @@ export class NestContainer {
   }
 
   public addController(controller: Type<any>, token: string) {
-    if (!this.modules.has(token)) {
-      throw new UnknownModuleException();
-    }
-    const moduleRef = this.modules.get(token);
-    moduleRef.addController(controller);
+    return;
   }
 
   public clear() {

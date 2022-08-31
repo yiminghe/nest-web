@@ -1,7 +1,6 @@
 export const MODULE_METADATA = {
   IMPORTS: 'imports',
   PROVIDERS: 'providers',
-  CONTROLLERS: 'controllers',
   EXPORTS: 'exports',
 };
 export const GLOBAL_MODULE_METADATA = '__module:global__';

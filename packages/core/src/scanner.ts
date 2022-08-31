@@ -149,7 +149,6 @@ export class DependenciesScanner {
     for (const [token, { metatype }] of modules) {
       await this.reflectImports(metatype, token, metatype.name);
       this.reflectProviders(metatype, token);
-      this.reflectControllers(metatype, token);
       this.reflectExports(metatype, token);
     }
   }
@@ -373,7 +372,7 @@ export class DependenciesScanner {
     this.container.addExportedProvider(exportedProvider, token);
   }
 
-  public insertController(controller: Type<Controller>, token: string) {
+  public insertController(controller: Type<any>, token: string) {
     return;
   }
 
@@ -396,20 +395,7 @@ export class DependenciesScanner {
    * to all controllers metadata storage
    */
   public addScopedEnhancersMetadata() {
-    this.applicationProvidersApplyMap
-      .filter((wrapper) => this.isRequestOrTransient(wrapper.scope))
-      .forEach(({ moduleKey, providerKey }) => {
-        const modulesContainer = this.container.getModules();
-        const { injectables } = modulesContainer.get(moduleKey);
-        const instanceWrapper = injectables.get(providerKey);
-
-        Array.from(modulesContainer.values())
-          .map((module) => module.controllers.values())
-          .flat()
-          .forEach((controller) =>
-            controller.addEnhancerMetadata(instanceWrapper),
-          );
-      });
+    return;
   }
 
   public applyApplicationProviders() {

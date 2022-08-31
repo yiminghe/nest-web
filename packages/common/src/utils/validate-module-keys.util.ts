@@ -8,7 +8,6 @@ export const INVALID_MODULE_CONFIG_MESSAGE = (
 const metadataKeys = [
   metadataConstants.IMPORTS,
   metadataConstants.EXPORTS,
-  metadataConstants.CONTROLLERS,
   metadataConstants.PROVIDERS,
 ];
 

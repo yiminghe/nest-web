@@ -1,6 +1,6 @@
 # nest-web
 
-using nestjs on web
+using nestjs DI on web
 
 ## usage
 

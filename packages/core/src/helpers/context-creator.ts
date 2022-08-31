@@ -1,4 +1,3 @@
-import { Controller } from 'nest-web-common';
 import { STATIC_CONTEXT } from '../injector/constants';
 import { ContextId } from '../injector/instance-wrapper';
 
@@ -14,7 +13,7 @@ export abstract class ContextCreator {
   ): T;
 
   public createContext<T extends unknown[] = any, R extends unknown[] = any>(
-    instance: Controller,
+    instance: any,
     callback: (...args: any[]) => void,
     metadataKey: string,
     contextId = STATIC_CONTEXT,
@@ -40,7 +39,7 @@ export abstract class ContextCreator {
     ] as R;
   }
 
-  public reflectClassMetadata<T>(instance: Controller, metadataKey: string): T {
+  public reflectClassMetadata<T>(instance: any, metadataKey: string): T {
     const prototype = Object.getPrototypeOf(instance);
     return Reflect.getMetadata(metadataKey, prototype.constructor);
   }

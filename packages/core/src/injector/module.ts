@@ -1,6 +1,5 @@
 import {
   ClassProvider,
-  Controller,
   DynamicModule,
   ExistingProvider,
   FactoryProvider,
@@ -48,10 +47,7 @@ export class Module {
     InstanceToken,
     InstanceWrapper<any>
   >();
-  private readonly _controllers = new Map<
-    InstanceToken,
-    InstanceWrapper<Controller>
-  >();
+
   private readonly _exports = new Set<InstanceToken>();
   private _distance = 0;
   private _token: string;
@@ -102,19 +98,8 @@ export class Module {
     return this._providers;
   }
 
-  /**
-   * Left for backward-compatibility reasons
-   */
-  get routes(): Map<InstanceToken, InstanceWrapper<Controller>> {
-    return this._controllers;
-  }
-
   get injectables(): Map<InstanceToken, InstanceWrapper<any>> {
     return this._injectables;
-  }
-
-  get controllers(): Map<InstanceToken, InstanceWrapper<Controller>> {
-    return this._controllers;
   }
 
   get exports(): Set<InstanceToken> {
@@ -206,11 +191,6 @@ export class Module {
         host: this,
       });
       this._injectables.set(injectable, instanceWrapper);
-    }
-    if (host) {
-      const hostWrapper =
-        this._controllers.get(host) || this._providers.get(host);
-      hostWrapper && hostWrapper.addEnhancerMetadata(instanceWrapper);
     }
   }
 
@@ -433,33 +413,6 @@ export class Module {
       throw new UnknownExportException(providerName as string, name);
     }
     return token;
-  }
-
-  public addController(controller: Type<Controller>) {
-    this._controllers.set(
-      controller,
-      new InstanceWrapper({
-        token: controller,
-        name: controller.name,
-        metatype: controller,
-        instance: null,
-        isResolved: false,
-        scope: getClassScope(controller),
-        durable: isDurable(controller),
-        host: this,
-      }),
-    );
-
-    this.assignControllerUniqueId(controller);
-  }
-
-  public assignControllerUniqueId(controller: Type<Controller>) {
-    Object.defineProperty(controller, CONTROLLER_ID_KEY, {
-      enumerable: false,
-      writable: false,
-      configurable: true,
-      value: randomStringGenerator(),
-    });
   }
 
   public addRelatedModule(module: Module) {

@@ -2,15 +2,12 @@ import {
   PARAMTYPES_METADATA,
   RESPONSE_PASSTHROUGH_METADATA,
 } from 'nest-web-common';
-import { ContextType, Controller, PipeTransform, Type } from 'nest-web-common';
-import { isFunction } from 'nest-web-common';
-import { ExecutionContextHost } from './execution-context-host';
 
 export interface ParamProperties<T = any, IExtractor extends Function = any> {
   index: number;
   type: T | string;
   data: any;
-  pipes: PipeTransform[];
+  pipes: any[];
   extractValue: IExtractor;
 }
 
@@ -20,22 +17,19 @@ export class ContextUtils {
     return keyPair[0];
   }
 
-  public reflectCallbackParamtypes(
-    instance: Controller,
-    methodName: string,
-  ): any[] {
+  public reflectCallbackParamtypes(instance: any, methodName: string): any[] {
     return Reflect.getMetadata(PARAMTYPES_METADATA, instance, methodName);
   }
 
   public reflectCallbackMetadata<T = any>(
-    instance: Controller,
+    instance: any,
     methodName: string,
     metadataKey: string,
   ): T {
     return Reflect.getMetadata(metadataKey, instance.constructor, methodName);
   }
 
-  public reflectPassthrough(instance: Controller, methodName: string): boolean {
+  public reflectPassthrough(instance: any, methodName: string): boolean {
     return Reflect.getMetadata(
       RESPONSE_PASSTHROUGH_METADATA,
       instance.constructor,
@@ -66,32 +60,5 @@ export class ContextUtils {
       ...param,
       metatype: paramtypes[param.index],
     }));
-  }
-
-  public getCustomFactory(
-    factory: (...args: unknown[]) => void,
-    data: unknown,
-    contextFactory: (args: unknown[]) => ExecutionContextHost,
-  ): (...args: unknown[]) => unknown {
-    return isFunction(factory)
-      ? (...args: unknown[]) => factory(data, contextFactory(args))
-      : () => null;
-  }
-
-  public getContextFactory<TContext extends string = ContextType>(
-    contextType: TContext,
-    instance?: object,
-    callback?: Function,
-  ): (args: unknown[]) => ExecutionContextHost {
-    const contextFactory = (args: unknown[]) => {
-      const ctx = new ExecutionContextHost(
-        args,
-        instance && (instance.constructor as Type<unknown>),
-        callback,
-      );
-      ctx.setType(contextType);
-      return ctx;
-    };
-    return contextFactory;
   }
 }

@@ -5,6 +5,6 @@ import { Injectable } from 'nest-web/common';
 export class RenderService {
   constructor(private readonly appService: AppService) {}
   render() {
-    console.log(this.appService.getVersion());
+    return this.appService.getVersion();
   }
 }

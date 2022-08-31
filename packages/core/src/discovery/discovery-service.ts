@@ -27,16 +27,6 @@ export class DiscoveryService {
     return flatten(providers);
   }
 
-  getControllers(
-    options: DiscoveryOptions = {},
-    modules: Module[] = this.getModules(options),
-  ): InstanceWrapper[] {
-    const controllers = modules.map((item) =>
-      Array.from(item.controllers.values()),
-    );
-    return flatten(controllers);
-  }
-
   protected getModules(options: DiscoveryOptions = {}): Module[] {
     if (!options.include) {
       const moduleRefs = Array.from(this.modulesContainer.values());

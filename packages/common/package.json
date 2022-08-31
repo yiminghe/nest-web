@@ -1,7 +1,7 @@
 {
   "name": "nest-web-common",
-  "version": "9.0.11",
-  "description": "Using nestjs on web",
+  "version": "9.0.12",
+  "description": "Using nestjs DI on web",
   "license": "MIT",
   "repository": {
     "type": "git",

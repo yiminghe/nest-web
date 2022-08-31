@@ -1,5 +1,4 @@
 import { Logger } from 'nest-web-common';
-import { Controller } from 'nest-web-common';
 import { MODULE_INIT_MESSAGE } from '../helpers/messages';
 import { NestContainer } from './container';
 import { Injector } from './injector';
@@ -30,7 +29,6 @@ export class InstanceLoader {
     modules.forEach((moduleRef) => {
       this.createPrototypesOfProviders(moduleRef);
       this.createPrototypesOfInjectables(moduleRef);
-      this.createPrototypesOfControllers(moduleRef);
     });
   }
 
@@ -39,7 +37,6 @@ export class InstanceLoader {
       Array.from(modules.values()).map(async (moduleRef) => {
         await this.createInstancesOfProviders(moduleRef);
         await this.createInstancesOfInjectables(moduleRef);
-        await this.createInstancesOfControllers(moduleRef);
 
         const { name } = moduleRef.metatype;
         this.isModuleWhitelisted(name) &&
@@ -61,17 +58,6 @@ export class InstanceLoader {
     await Promise.all(
       wrappers.map((item) => this.injector.loadProvider(item, moduleRef)),
     );
-  }
-
-  private createPrototypesOfControllers(moduleRef: Module) {
-    const { controllers } = moduleRef;
-    controllers.forEach((wrapper) =>
-      this.injector.loadPrototype<Controller>(wrapper, controllers),
-    );
-  }
-
-  private async createInstancesOfControllers(moduleRef: Module) {
-    return;
   }
 
   private createPrototypesOfInjectables(moduleRef: Module) {

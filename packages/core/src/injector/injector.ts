@@ -11,7 +11,6 @@ import {
   PROPERTY_DEPS_METADATA,
   SELF_DECLARED_DEPS_METADATA,
 } from 'nest-web-common';
-import { Controller } from 'nest-web-common';
 import { Type } from 'nest-web-common';
 import { clc } from 'nest-web-common';
 import {
@@ -172,7 +171,7 @@ export class Injector {
   }
 
   public async loadController(
-    wrapper: InstanceWrapper<Controller>,
+    wrapper: InstanceWrapper<any>,
     moduleRef: Module,
     contextId = STATIC_CONTEXT,
   ) {

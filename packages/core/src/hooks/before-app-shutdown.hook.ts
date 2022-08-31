@@ -51,7 +51,6 @@ export async function callBeforeAppShutdownHook(
   const providers = module.getNonAliasProviders();
   const [_, moduleClassHost] = providers.shift();
   const instances = [
-    ...module.controllers,
     ...providers,
     ...module.injectables,
     ...module.middlewares,

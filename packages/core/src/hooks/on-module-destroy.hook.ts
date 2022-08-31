@@ -42,7 +42,6 @@ export async function callModuleDestroyHook(module: Module): Promise<any> {
   // Lifecycle hook has to be called once all classes are properly destroyed
   const [_, moduleClassHost] = providers.shift();
   const instances = [
-    ...module.controllers,
     ...providers,
     ...module.injectables,
     ...module.middlewares,

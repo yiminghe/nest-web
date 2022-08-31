@@ -1,20 +1,7 @@
-import { ExceptionFilter, VersioningOptions } from 'nest-web-common';
+import { VersioningOptions } from 'nest-web-common';
 
 export class ApplicationConfig {
-  private globalFilters: Array<ExceptionFilter> = [];
   private versioningOptions: VersioningOptions;
-
-  public getGlobalFilters(): ExceptionFilter[] {
-    return this.globalFilters;
-  }
-
-  public addGlobalFilter(filter: ExceptionFilter) {
-    this.globalFilters.push(filter);
-  }
-
-  public useGlobalFilters(...filters: ExceptionFilter[]) {
-    this.globalFilters = this.globalFilters.concat(filters);
-  }
 
   public enableVersioning(options: VersioningOptions): void {
     if (Array.isArray(options.defaultVersion)) {

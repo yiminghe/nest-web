@@ -4,7 +4,7 @@ import { NestContainer } from './container';
 import { InstanceWrapper } from './instance-wrapper';
 import { InstanceToken, Module } from './module';
 
-type HostCollection = 'providers' | 'controllers' | 'injectables';
+type HostCollection = 'providers' | 'injectables';
 
 export interface InstanceLink<T = any> {
   token: InstanceToken;
@@ -39,15 +39,12 @@ export class InstanceLinksHost {
   private initialize() {
     const modules = this.container.getModules();
     modules.forEach((moduleRef) => {
-      const { providers, injectables, controllers } = moduleRef;
+      const { providers, injectables } = moduleRef;
       providers.forEach((wrapper, token) =>
         this.addLink(wrapper, token, moduleRef, 'providers'),
       );
       injectables.forEach((wrapper, token) =>
         this.addLink(wrapper, token, moduleRef, 'injectables'),
-      );
-      controllers.forEach((wrapper, token) =>
-        this.addLink(wrapper, token, moduleRef, 'controllers'),
       );
     });
   }

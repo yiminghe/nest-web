@@ -48,7 +48,6 @@ export async function callAppShutdownHook(
   // Lifecycle hook has to be called once all classes are properly initialized
   const [_, moduleClassHost] = providers.shift();
   const instances = [
-    ...module.controllers,
     ...providers,
     ...module.injectables,
     ...module.middlewares,

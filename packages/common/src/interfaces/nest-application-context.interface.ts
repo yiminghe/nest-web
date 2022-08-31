@@ -1,4 +1,3 @@
-import { ShutdownSignal } from '../enums/shutdown-signal.enum';
 import { LoggerService, LogLevel } from '../services/logger.service';
 import { DynamicModule } from './modules';
 import { Type } from './type.interface';
