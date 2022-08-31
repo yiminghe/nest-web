@@ -11,6 +11,5 @@ before_install:
   - corepack enable
 
 script:
-  - yarn check
   - yarn test
   
