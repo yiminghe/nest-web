@@ -57,5 +57,5 @@
     "pub": "yarn run build && cd pkg && npm publish",
     "build": "pika-pack build"
   },
-  "packageManager": "yarn@3.2.0"
+  "packageManager": "yarn@3.2.2"
 }
