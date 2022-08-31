@@ -6,7 +6,6 @@
  */
 
 export * from './application-config';
-export { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from './constants';
 export * from './discovery';
 export * from './helpers';
 export * from './injector';

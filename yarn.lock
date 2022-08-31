@@ -10323,7 +10323,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"nest-web-core@9.0.13, nest-web-core@workspace:packages/core":
+"nest-web-core@9.0.14, nest-web-core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "nest-web-core@workspace:packages/core"
   dependencies:
@@ -10386,7 +10386,7 @@ __metadata:
   resolution: "nest-web@workspace:packages/web"
   dependencies:
     nest-web-common: 9.0.12
-    nest-web-core: 9.0.13
+    nest-web-core: 9.0.14
     nest-web-testing: 9.0.11
   languageName: unknown
   linkType: soft

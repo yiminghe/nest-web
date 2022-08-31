@@ -1,6 +1,6 @@
 {
   "name": "nest-web-core",
-  "version": "9.0.13",
+  "version": "9.0.14",
   "description": "Using nestjs DI on web",
   "license": "MIT",
   "repository": {
