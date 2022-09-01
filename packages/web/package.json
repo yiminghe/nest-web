@@ -1,6 +1,6 @@
 {
   "name": "nest-web",
-  "version": "9.0.15",
+  "version": "9.0.16",
   "description": "Using nestjs DI on web",
   "license": "MIT",
   "repository": {
@@ -8,9 +8,9 @@
     "url": "git@github.com:yiminghe/nest-web.git"
   },
   "dependencies": {
-    "nest-web-common": "9.0.12",
-    "nest-web-core": "9.0.14",
-    "nest-web-testing": "9.0.11"
+    "nest-web-common": "9.0.13",
+    "nest-web-core": "9.0.15",
+    "nest-web-testing": "9.0.12"
   },
   "scripts": {
     "pub": "npm publish"

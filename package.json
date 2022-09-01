@@ -44,7 +44,6 @@
     "pika-plugin-ts-types": "^0.1.5",
     "prettier": "2.x",
     "reflect-metadata": "0.1.x",
-    "rxjs": "7.x",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.2"
   },

@@ -1,6 +1,6 @@
 {
   "name": "nest-web-testing",
-  "version": "9.0.11",
+  "version": "9.0.12",
   "description": "Using nestjs DI on web",
   "license": "MIT",
   "repository": {
@@ -44,12 +44,6 @@
     "@pika/pack": "^0.5.0",
     "@types/node": "18.x",
     "typescript": "^4.6.2"
-  },
-  "dependencies": {
-    "uuid": "8.x"
-  },
-  "peerDependencies": {
-    "rxjs": "7.x"
   },
   "scripts": {
     "pub": "yarn run build && cd pkg && npm publish",

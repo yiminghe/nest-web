@@ -1,7 +1,7 @@
-import { v4 as uuid } from 'uuid';
 import { INJECTABLE_WATERMARK, SCOPE_OPTIONS_METADATA } from '../../constants';
 import { ScopeOptions } from '../../interfaces/scope-options.interface';
 import { Type } from '../../interfaces/type.interface';
+import { randomStringGenerator } from '../../utils/random-string-generator.util';
 
 /**
  * Defines the injection scope.
@@ -49,7 +49,7 @@ export function Injectable(options?: InjectableOptions): ClassDecorator {
 
 export function mixin<T>(mixinClass: Type<T>) {
   Object.defineProperty(mixinClass, 'name', {
-    value: uuid(),
+    value: randomStringGenerator(),
   });
   Injectable()(mixinClass);
   return mixinClass;

@@ -1,6 +1,6 @@
 {
   "name": "nest-web-common",
-  "version": "9.0.12",
+  "version": "9.0.13",
   "description": "Using nestjs DI on web",
   "license": "MIT",
   "repository": {
@@ -42,16 +42,8 @@
   },
   "devDependencies": {
     "@pika/pack": "^0.5.0",
-    "@types/uuid": "7.x",
     "reflect-metadata": "0.1.x",
-    "rxjs": "7.x",
     "typescript": "^4.6.2"
-  },
-  "peerDependencies": {
-    "rxjs": "7.x"
-  },
-  "dependencies": {
-    "uuid": "8.x"
   },
   "scripts": {
     "pub": "yarn run build && cd pkg && npm publish",

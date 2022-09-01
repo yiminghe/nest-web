@@ -1,3 +1,3 @@
-import { v4 as uuid } from 'uuid';
+let id = 1;
 
-export const randomStringGenerator = () => uuid();
+export const randomStringGenerator = () => 'nest-web-' + ++id;

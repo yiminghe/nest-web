@@ -3098,13 +3098,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/uuid@npm:7.x":
-  version: 7.0.5
-  resolution: "@types/uuid@npm:7.0.5"
-  checksum: 30637d2cd40069ba8dfb2b70d3139b00ae576aa43f042d88039a7b0ce7dd5b3dbff1668844849a469cb00f7d42178dbb79c3ca74b62cf42629dca67952a2593d
-  languageName: node
-  linkType: hard
-
 "@types/ws@npm:^8.5.1":
   version: 8.5.3
   resolution: "@types/ws@npm:8.5.3"
@@ -3837,6 +3830,7 @@ __metadata:
     "@types/jest": 29.x
     "@yiminghe/react-scripts": 5.x
     nest-web: "workspace:9.x"
+    react: 18.x
     typescript: 4.x
   languageName: unknown
   linkType: soft
@@ -9757,7 +9751,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.0.0, loose-envify@npm:^1.4.0":
+"loose-envify@npm:^1.0.0, loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -10308,44 +10302,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nest-web-common@9.0.12, nest-web-common@workspace:packages/common":
+"nest-web-common@9.0.13, nest-web-common@workspace:packages/common":
   version: 0.0.0-use.local
   resolution: "nest-web-common@workspace:packages/common"
   dependencies:
     "@pika/pack": ^0.5.0
-    "@types/uuid": 7.x
     reflect-metadata: 0.1.x
-    rxjs: 7.x
     typescript: ^4.6.2
-    uuid: 8.x
-  peerDependencies:
-    rxjs: 7.x
   languageName: unknown
   linkType: soft
 
-"nest-web-core@9.0.14, nest-web-core@workspace:packages/core":
+"nest-web-core@9.0.15, nest-web-core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "nest-web-core@workspace:packages/core"
   dependencies:
     "@pika/pack": ^0.5.0
     "@types/node": 18.x
     typescript: ^4.6.2
-    uuid: 8.x
-  peerDependencies:
-    rxjs: 7.x
   languageName: unknown
   linkType: soft
 
-"nest-web-testing@9.0.11, nest-web-testing@workspace:packages/testing":
+"nest-web-testing@9.0.12, nest-web-testing@workspace:packages/testing":
   version: 0.0.0-use.local
   resolution: "nest-web-testing@workspace:packages/testing"
   dependencies:
     "@pika/pack": ^0.5.0
     "@types/node": 18.x
     typescript: ^4.6.2
-    uuid: 8.x
-  peerDependencies:
-    rxjs: 7.x
   languageName: unknown
   linkType: soft
 
@@ -10375,7 +10358,6 @@ __metadata:
     pika-plugin-ts-types: ^0.1.5
     prettier: 2.x
     reflect-metadata: 0.1.x
-    rxjs: 7.x
     ts-node: ^10.7.0
     typescript: ^4.6.2
   languageName: unknown
@@ -10385,9 +10367,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "nest-web@workspace:packages/web"
   dependencies:
-    nest-web-common: 9.0.12
-    nest-web-core: 9.0.14
-    nest-web-testing: 9.0.11
+    nest-web-common: 9.0.13
+    nest-web-core: 9.0.15
+    nest-web-testing: 9.0.12
   languageName: unknown
   linkType: soft
 
@@ -12523,6 +12505,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react@npm:18.x":
+  version: 18.2.0
+  resolution: "react@npm:18.2.0"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: 88e38092da8839b830cda6feef2e8505dec8ace60579e46aa5490fc3dc9bba0bd50336507dc166f43e3afc1c42939c09fe33b25fae889d6f402721dcd78fca1b
+  languageName: node
+  linkType: hard
+
 "read-cache@npm:^1.0.0":
   version: 1.0.0
   resolution: "read-cache@npm:1.0.0"
@@ -13053,15 +13044,6 @@ __metadata:
   dependencies:
     queue-microtask: ^1.2.2
   checksum: cb4f97ad25a75ebc11a8ef4e33bb962f8af8516bb2001082ceabd8902e15b98f4b84b4f8a9b222e5d57fc3bd1379c483886ed4619367a7680dad65316993021d
-  languageName: node
-  linkType: hard
-
-"rxjs@npm:7.x":
-  version: 7.5.6
-  resolution: "rxjs@npm:7.5.6"
-  dependencies:
-    tslib: ^2.1.0
-  checksum: fc05f01364a74dac57490fb3e07ea63b422af04017fae1db641a009073f902ef69f285c5daac31359620dc8d9aee7d81e42b370ca2a8573d1feae0b04329383b
   languageName: node
   linkType: hard
 
@@ -14399,7 +14381,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.3, tslib@npm:^2.1.0":
+"tslib@npm:^2.0.3":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
@@ -14742,7 +14724,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:8.x, uuid@npm:^8.3.2":
+"uuid@npm:^8.3.2":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
   bin:
